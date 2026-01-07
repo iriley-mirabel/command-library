@@ -1,0 +1,84 @@
+To implement the UI Component Fixes from your reference guide into Cursor, you should create dedicated files for each component. These commands are highly effective because they provide the AI with specific "checklists" for the components it is about to modify.
+
+Here are the machine-ready Markdown files for your UI library:
+
+1. The Filter Bar Command
+File: .cursor/commands/fix-filter-bar.md
+
+Markdown
+
+# /fix-filter-bar
+[cite_start]Standardize the filter bar layout and functionality in the current file[cite: 100, 101].
+
+## 📋 Instructions
+1. [cite_start]**Layout**: Fix spacing issues and ensure design token compliance[cite: 106].
+2. **Logic**: 
+   - [cite_start]Ensure an "All" option exists in the filter[cite: 107].
+   - [cite_start]Detect and fix view mode switching logic[cite: 108].
+3. [cite_start]**Dependencies**: Auto-fix broken import paths related to the filter components[cite: 109].
+
+## 🛠 Usage
+- [cite_start]Use this when the filter bar is inconsistent or missing features[cite: 104].
+- [cite_start]**Recommended Chain**: Run `/implement-view-modes` immediately after[cite: 447, 448].
+2. The Data Table Command
+File: .cursor/commands/fix-data-table.md
+
+Markdown
+
+# /fix-data-table
+[cite_start]Standardize data table implementations for consistency and performance[cite: 111, 112].
+
+## 📋 Instructions
+1. [cite_start]**Definitions**: Auto-fix column definitions and ensure they align with the design system[cite: 117].
+2. [cite_start]**Styling**: Fix cell spacing and standardize status badge components[cite: 118, 119].
+3. [cite_start]**Optimization**: Remove any unused code or legacy table properties[cite: 120].
+
+## 🛠 Usage
+- [cite_start]Use for table inconsistencies or when upgrading legacy tables[cite: 113, 115].
+- [cite_start]**Speed**: Moderate (2-4 min)[cite: 114].
+3. The Form Fields Command
+File: .cursor/commands/fix-form-fields.md
+
+Markdown
+
+# /fix-form-fields
+[cite_start]Standardize form fields using the project's Label components and spacing rules[cite: 133, 134].
+
+## 📋 Instructions
+1. [cite_start]**Components**: Replace plain HTML labels with the standardized `Label` component[cite: 139].
+2. [cite_start]**Text**: Standardize placeholder text for consistency across the module[cite: 140].
+3. [cite_start]**Logic**: Add missing validation logic and error state handling[cite: 141].
+4. [cite_start]**Spacing**: Fix field spacing and ensure design token usage (hardcoded px to tokens)[cite: 142, 143].
+
+## 🛠 Usage
+- [cite_start]Use for form inconsistencies and design system compliance[cite: 137].
+4. The View Modes Command
+File: .cursor/commands/implement-view-modes.md
+
+Markdown
+
+# /implement-view-modes
+[cite_start]Add missing Table and Card view toggles to the current page[cite: 122, 123].
+
+## 📋 Instructions
+1. [cite_start]**Views**: Implement both a standardized Table view and a responsive Card view[cite: 128, 129].
+2. [cite_start]**State**: Add the necessary React state management to handle view switching[cite: 130].
+3. [cite_start]**UI**: Add the view toggle component to the existing Filter Bar[cite: 131].
+
+## 🛠 Usage
+- [cite_start]Use when a page only has one view type but requires both[cite: 126].
+🛠 How to Manage the Workflow Chain
+Since your team wants to "chain" these together, you can now use a Workflow Sequence in your daily tasks. According to your master reference, the most efficient way to execute these is in a specific order.
++1
+
+
+Recommended Execution Chain:
+
+/fix-filter-bar
+
+/implement-view-modes
+
+/fix-data-table
+
+Would you like me to create the Testing & Debugging command files next, such as the /test-page-quick or /debug-failing-page commands?
++1

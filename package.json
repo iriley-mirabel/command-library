@@ -1,0 +1,24 @@
+{
+  "name": "cursor-command-library",
+  "version": "1.0.0",
+  "description": "A centralized repository for Cursor IDE slash commands and workflows",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'Web portal coming soon. See README.md for current usage.'",
+    "build": "echo 'Web portal coming soon.'",
+    "start": "echo 'Web portal coming soon.'"
+  },
+  "keywords": [
+    "cursor",
+    "ide",
+    "commands",
+    "workflow",
+    "development-tools"
+  ],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iriley-mirabel/command-library.git"
+  }
+}

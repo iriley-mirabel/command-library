@@ -1,0 +1,167 @@
+PRD: Cursor Command Library & Workflow Hub
+1. Project Overview
+A web-based portal for development teams to browse, search, and export a standardized library of Cursor IDE slash commands and workflows.
+
+2. Technical Stack (Recommended)
+Framework: Next.js (App Router)
+
+Styling: Tailwind CSS + Shadcn UI
+
+Content: Markdown-based (to match Cursor's native format)
+
+Deployment: Vercel or GitHub Pages
+
+3. Core Features & App Structure
+A. The Sidebar Navigation
+Search Bar: Filter commands by name or tag (e.g., "UI", "Cleanup").
+
+Categories: * Getting Started (Installation instructions)
+
+Individual Commands (The atomic tools)
+
+Workflows (The chained commands)
+
+Best Practices (The .cursorrules setup)
+
+B. Command Detail View
+Each command page must display:
+
+Title: e.g., /standardize-page
+
+Description: What it does.
+
+Code Block: The actual Markdown content with a "Copy to Clipboard" button.
+
+Usage Badge: (e.g., "Fast", "5-10 mins", "High Impact").
+
+C. The "Export for Project" Tool
+A button to "Download .cursor/commands Config".
+
+This triggers a download of a .zip file containing all the .md files we've created, pre-structured in a .cursor/commands/ directory.
+
+4. Content to Seed (The Command Library)
+File: /standardize-page.md
+Markdown
+
+# /standardize-page
+Standardize page layout, imports, and UI components.
+Steps: 1. Fix Imports | 2. Cleanup | 3. Design Tokens | 4. UI Components.
+File: /pr-ready.md
+Markdown
+
+# /pr-ready
+Audit code quality, summarize changes, and generate a GitHub-ready PR description.
+(AI Note: Use the full library of 75+ commands from the provided Master Reference to populate the database/registry).
+
+5. Repository Structure
+The generated GitHub repo should look like this:
+
+Plaintext
+
+├── app/                # Next.js web application
+├── public/             # Assets and downloadable .zip templates
+├── library/            # Master .md files for the commands
+│   ├── cleanup.md
+│   ├── imports.md
+│   └── ... (all 75+ commands)
+├── README.md           # Instructions for the dev team
+└── .cursor/            # The app's own Cursor config
+6. Prompt for Cursor to Build the App
+Copy and paste this into Cursor Composer:
+
+"I want to build a Next.js application using Tailwind and Shadcn UI. This app is a 'Command Registry' for my dev team.
+
+Create a searchable dashboard that displays a list of 'Slash Commands'.
+
+When a command is clicked, show its Markdown content with a 'Copy' button.
+
+Include a 'Download All' button that bundles a folder named .cursor/commands containing all the .md files.
+
+Use a clean, developer-focused 'Dark Mode' aesthetic.
+
+Create a 'Quick Start' page explaining how to move the downloaded files into a project root.
+
+Base the content of the commands on the 'Master Reference' logic provided in our chat history."
+
+PROMPT: Build the "Cursor Command Central" Portal
+Instructions for Cursor: Create a Next.js (App Router) application with Tailwind CSS and Shadcn UI. This app will act as a documentation hub and distribution tool for our team's custom Cursor slash commands.
+
+1. App Architecture & Pages
+Home (/): A high-level dashboard showing the "Most Used" commands and a search bar that filters the library.
+
+Library (/library): A grid/list view of all 75+ commands.
+
+Command Detail (/command/[id]): A dedicated page for each command showing description, use cases, and a "Copy Markdown" button.
+
+Install (/install): A guide on how to clone the repo or manually add the .cursor/commands folder to a project.
+
+2. Key Component: The "Project Bundler"
+Create a utility that allows users to click a button and download a .zip file.
+
+Structure of ZIP: It must contain a folder named .cursor with a subfolder commands.
+
+Contents: Every command in the library must be saved as an individual .md file inside that folder.
+
+3. The Content Source (Machine-Ready Commands)
+Use the following content to generate the individual .md files for the repository and the app database:
+
+Category: Core Workflows
+File: standardize-page.md
+
+Markdown
+
+# /standardize-page
+Standardize page layout, imports, and UI components.
+1. Run /fix-import-paths
+2. Run /cleanup-unused-code
+3. Convert hardcoded px to design tokens
+4. Standardize UI components (Filter, Table, Forms)
+5. Run /test-page-quick
+File: pre-commit-checklist.md
+
+Markdown
+
+# /pre-commit-checklist
+Complete quality check before PR.
+1. Audit for logs/dead code.
+2. Verify design token compliance.
+3. Run quick smoke tests on critical routes.
+4. Generate /pr-ready summary.
+Category: UI Components
+File: fix-filter-bar.md
+
+Markdown
+
+# /fix-filter-bar
+Standardize filter bar layout. Ensure "All" option exists, fix spacing, and verify view-mode toggle logic.
+File: fix-data-table.md
+
+Markdown
+
+# /fix-data-table
+Fix column definitions, status badge styling, and cell spacing. Remove legacy table properties.
+Category: Utility & Discovery
+File: find-command.md
+
+Markdown
+
+# /find-command [keyword]
+Search the team library for specific tools based on keywords (e.g., "forms", "api", "clean").
+4. Design Language
+Theme: Dark mode by default (Slate/Zinc).
+
+Typography: Monospace for command names; Sans-serif for descriptions.
+
+Interactive: "Copy to Clipboard" buttons on every code block.
+
+
+Developer Setup Guide (To include in the App's README)
+How to share this with your team:
+
+GitHub Repo: Initialize a repo and paste the code Cursor generates.
+
+The .cursor/ folder: Commit the .cursor/commands folder directly to your project repos so they are "plug-and-play."
+
+The Website: Deploy the Next.js app to Vercel so non-technical stakeholders or new devs can browse the library easily.
+
+Cursor, please begin by scaffolding the Next.js project and creating the commands.json data structure using the descriptions provided above.

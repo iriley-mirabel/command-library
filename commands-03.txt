@@ -1,0 +1,88 @@
+While the text you provided is a comprehensive reference, it serves more as a human-readable manual than a machine-executable command library.
+
+To make these commands work inside Cursor’s AI (specifically in the Composer or Chat), you need to break them into individual .md files within the .cursor/commands/ directory.
+
+I have converted the most critical parts of your reference into the Cursor-native format. You should create these files in your project root to activate them.
+
+1. The "Controller" Workflow
+This file chains your existing commands together. It allows the AI to understand the sequence of operations for your complex workflows.
++1
+
+File: .cursor/commands/standardize-page.md
+
+Markdown
+
+# /standardize-page
+Standardize a page by running all common fixes and quality checks.
+
+## 📋 Execution Steps
+Please execute these commands in order. **Stop and ask for feedback after Step 4.**
+
+1. **Imports**: Run `/fix-import-paths` to standardize order and fix broken paths.
+2. **Cleanup**: Run `/cleanup-unused-code` to remove dead code and logs.
+3. **Layout**: Run `/fix-spacing-layout` to convert hardcoded px to design tokens.
+4. **UI Components**: Run `/fix-filter-bar`, `/implement-view-modes`, and `/fix-data-table`.
+5. **Forms**: If forms exist, run `/fix-form-fields`.
+6. **Verification**: End with `/test-page-quick`.
+
+## 🛠️ Context
+- **Target Path**: @[path]
+- [cite_start]**Time Estimate**: 5-10 minutes [cite: 300]
+2. Individual Command Library
+Create individual files for your most-used granular commands so they appear in the / dropdown menu.
+
+File: .cursor/commands/cleanup.md
+
+Markdown
+
+# /cleanup-unused-code
+[cite_start]**Purpose:** Remove unused imports, commented code, unused variables, and console.logs[cite: 55].
+
+## Instructions
+- [cite_start]Remove any code blocks that are commented out[cite: 61].
+- [cite_start]Identify and delete unused variables or functions[cite: 62].
+- [cite_start]If `--remove-console-logs` is passed, delete all console.log statements[cite: 56, 63].
+- Standardize the file after cleaning.
+File: .cursor/commands/imports.md
+
+Markdown
+
+# /fix-import-paths
+[cite_start]**Purpose:** Fix broken imports and standardize order[cite: 66].
+
+## Instructions
+- [cite_start]Convert relative paths to absolute `@/` paths[cite: 72].
+- [cite_start]Organize order: React → External → Internal → Types[cite: 73].
+- [cite_start]Ensure all imports are used; remove those that aren't[cite: 74].
+3. The "Team Todo" Discovery Command
+This replaces your "Scenario" sections with an interactive search for your developers.
++1
+
+File: .cursor/commands/find-command.md
+
+Markdown
+
+# /find-command [keyword]
+[cite_start]Search the command library to find the right tool for the task[cite: 235].
+
+## Usage Guide
+[cite_start]Search by these categories[cite: 240, 241]:
+- **"UI"**: `/fix-filter-bar`, `/fix-data-table`, `/fix-form-fields`
+- **"Testing"**: `/test-page-quick`, `/debug-failing-page`
+- **"Cleanup"**: `/clean`, `/imports`, `/refactor`
+
+## Scenarios
+- [cite_start]**First Day?** Run `/test-page-quick`[cite: 495].
+- [cite_start]**Before PR?** Run `/pre-commit-checklist`[cite: 504].
+- [cite_start]**Fixed a bug?** Run `/daily-cleanup`[cite: 539].
+4. Implementation Steps for your Team
+Directory Structure: Create a folder named .cursor/commands/ in your repository root.
+
+Add Files: Save the Markdown blocks above as separate .md files in that folder.
+
+Global Rules: Create a file named .cursorrules in your root. Add this line:
+
+"When a user uses a slash command, strictly follow the definitions found in .cursor/commands/."
+
+
+The Library: Since your reference guide lists 75+ commands, I recommend starting with the Top 10 most used ones as individual files first to avoid overwhelming the AI's context.

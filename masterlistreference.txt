@@ -1,0 +1,931 @@
+# 📚 Complete Slash Commands Guide - Master Reference
+
+**Version:** 1.0  
+**Last Updated:** 2024  
+**Total Commands:** 75+  
+**Total Pages:** Complete reference in one document
+
+---
+
+## 📋 Table of Contents
+
+1. [Quick Start](#quick-start)
+2. [Command Library](#command-library)
+3. [Workflow Commands](#workflow-commands)
+4. [Discovery Commands](#discovery-commands)
+5. [Command Aliases](#command-aliases)
+6. [Command Comparison](#command-comparison)
+7. [Command Dependencies](#command-dependencies)
+8. [Quick Start Guides](#quick-start-guides)
+9. [Best Practices](#best-practices)
+10. [Appendix](#appendix)
+
+---
+
+# Quick Start
+
+## 🚀 Most Used Commands
+
+### Daily Development
+```bash
+/test-page-quick              # Quick validation (2min)
+/cleanup-unused-code [path]   # Code cleanup (1-2min)
+/fix-import-paths [path]      # Fix imports (30s-1min)
+```
+
+### Before Commits
+```bash
+/pre-commit-checklist [path]  # Complete quality check (3-5min)
+```
+
+### Page Standardization
+```bash
+/standardize-page [path]      # Complete standardization (5-10min)
+```
+
+### Discovery
+```bash
+/find-command [keyword]       # Search for commands
+/suggest-command [path]       # Get suggestions
+```
+
+---
+
+## ⚡ Quick Aliases
+
+| Alias | Full Command | Purpose |
+|-------|-------------|---------|
+| `/clean` | `/cleanup-unused-code` | Remove unused code |
+| `/imports` | `/fix-import-paths` | Fix imports |
+| `/spacing` | `/fix-spacing-layout` | Fix spacing |
+| `/filter` | `/fix-filter-bar` | Fix filter bar |
+| `/table` | `/fix-data-table` | Fix data table |
+| `/test` | `/test-page-quick` | Quick test |
+| `/pr` | `/pr-ready` | PR check |
+
+---
+
+# Command Library
+
+## 🧹 Code Quality & Cleanup
+
+### `/cleanup-unused-code` ⭐
+**Purpose:** Remove unused imports, commented code, unused variables, console.log  
+**Usage:** `/cleanup-unused-code [path] [--remove-console-logs]`  
+**Speed:** Fast (30s - 2min)  
+**When to use:** Daily cleanup, before commits, after refactoring
+
+**Fixes:**
+- Unused imports
+- Commented-out code blocks
+- Unused variables/functions
+- Console.log statements (optional)
+
+---
+
+### `/fix-import-paths` ⭐
+**Purpose:** Fix broken imports, standardize import order, convert relative to absolute  
+**Usage:** `/fix-import-paths [path]`  
+**Speed:** Fast (30s - 1min)  
+**When to use:** After moving files, when imports break, code standardization
+
+**Fixes:**
+- Broken import paths
+- Relative → absolute imports (`@/` paths)
+- Import order (React → External → Internal → Types)
+- Unused imports
+- Type-only imports
+
+---
+
+### `/fix-spacing-layout` ⭐
+**Purpose:** Convert hardcoded spacing to design tokens, fix layout inconsistencies  
+**Usage:** `/fix-spacing-layout [path]`  
+**Speed:** Fast (30s - 2min)  
+**When to use:** Design token compliance, layout standardization
+
+**Fixes:**
+- Hardcoded px values → Design tokens
+- Inconsistent spacing → Standard spacing scale
+- Inline style spacing → Tailwind classes
+- Layout alignment issues
+
+---
+
+### `/refactor-cleanup` ⭐
+**Purpose:** Comprehensive refactoring with better cleanup patterns  
+**Usage:** `/refactor-cleanup [path]`  
+**Speed:** Moderate (2-5min)  
+**When to use:** Major refactoring, code quality improvements
+
+**New capabilities:**
+- Better unused code detection
+- Integration with import fixes
+- More aggressive cleanup
+- Uses `/cleanup-unused-code` patterns
+
+---
+
+## 🎨 UI Component Fixes
+
+### `/fix-filter-bar` ⭐
+**Purpose:** Standardize filter bar layout and functionality  
+**Usage:** `/fix-filter-bar [path]`  
+**Speed:** Moderate (1-3min)  
+**When to use:** Filter bar inconsistencies, missing features
+
+**New capabilities:**
+- Auto-fixes spacing issues
+- Auto-adds "All" option
+- Better view mode detection
+- Auto-fixes import paths
+
+---
+
+### `/fix-data-table` ⭐
+**Purpose:** Standardize data table implementation  
+**Usage:** `/fix-data-table [path]`  
+**Speed:** Moderate (2-4min)  
+**When to use:** Table inconsistencies, missing features
+
+**New capabilities:**
+- Auto-fixes column definitions
+- Auto-fixes spacing
+- Better status badge standardization
+- Auto-cleanup unused code
+
+---
+
+### `/implement-view-modes` ⭐
+**Purpose:** Add missing table/card views to pages  
+**Usage:** `/implement-view-modes [path]`  
+**Speed:** Moderate (2-4min)  
+**When to use:** Pages with only one view, missing view implementations
+
+**Fixes:**
+- Adds missing table view
+- Adds missing card view
+- Adds view state management
+- Adds view toggle to filter bar
+
+---
+
+### `/fix-form-fields` ⭐
+**Purpose:** Standardize form fields with Label component, proper spacing  
+**Usage:** `/fix-form-fields [path]`  
+**Speed:** Fast (30s - 2min)  
+**When to use:** Form inconsistencies, design token compliance
+
+**Fixes:**
+- Replaces plain labels with Label component
+- Standardizes placeholder text
+- Adds missing validation
+- Fixes field spacing
+- Ensures design token usage
+
+---
+
+### `/standardize-status-badges` ⭐
+**Purpose:** Standardize status badge colors and labels  
+**Usage:** `/standardize-status-badges [path]`  
+**Speed:** Fast (30s - 2min)  
+**When to use:** Inconsistent status colors, design token compliance
+
+**Fixes:**
+- Inconsistent status colors
+- Status color mappings
+- Status labels
+- Design token usage
+
+---
+
+## 🧪 Testing & Debugging
+
+### `/test-page-quick` 🚀
+**Purpose:** Quick smoke test of critical pages  
+**Usage:** `/test-page-quick`  
+**Speed:** Fast (2min)  
+**When to use:** Daily checks, quick validation
+
+**Tests:**
+- Dashboard
+- Products
+- Chargebrite Customers
+- Chargebrite Subscriptions
+- Classified Ads
+- Events
+
+---
+
+### `/test-feature-pages`
+**Purpose:** Test pages for a specific feature  
+**Usage:** `/test-feature-pages`  
+**Speed:** Moderate (2-3min per feature)  
+**When to use:** After feature work, focused testing
+
+---
+
+### `/test-pages`
+**Purpose:** Comprehensive full application test  
+**Usage:** `/test-pages`  
+**Speed:** Slow (5-10min)  
+**When to use:** Pre-deployment, weekly health checks
+
+---
+
+### `/debug-failing-page`
+**Purpose:** Deep dive debugging for a specific failing page  
+**Usage:** `/debug-failing-page`  
+**Speed:** Moderate (5min)  
+**When to use:** Page won't load, need detailed analysis
+
+---
+
+## 🔄 Development Workflow
+
+### `/standardize-page` ⭐ **NEW WORKFLOW**
+**Purpose:** Complete page standardization workflow - runs all common fixes  
+**Usage:** `/standardize-page [path]`  
+**Speed:** Moderate (5-10min)  
+**When to use:** New pages, legacy pages, before refactoring
+
+**Workflow includes:**
+- Import fixes
+- Code cleanup
+- Spacing fixes
+- Filter bar standardization
+- View modes implementation
+- Data table standardization
+- Form field standardization
+- Quick test verification
+
+---
+
+### `/pre-commit-checklist` ⭐ **NEW WORKFLOW**
+**Purpose:** Pre-commit quality check workflow - runs all quality checks  
+**Usage:** `/pre-commit-checklist [path]`  
+**Speed:** Fast (3-5min)  
+**When to use:** Before every commit, before PR
+
+**Workflow includes:**
+- Code cleanup
+- Import fixes
+- Spacing fixes
+- Design token check
+- Quick test
+- PR readiness check
+
+---
+
+### `/daily-cleanup` ⭐ **NEW WORKFLOW**
+**Purpose:** Quick daily cleanup routine  
+**Usage:** `/daily-cleanup [path]`  
+**Speed:** Fast (2-3min)  
+**When to use:** Start/end of day, quick maintenance
+
+**Workflow includes:**
+- Code cleanup
+- Import fixes
+- Quick test
+
+---
+
+### `/pr-ready`
+**Purpose:** Check if code is ready for PR  
+**Usage:** `/pr-ready`  
+**Speed:** Moderate (2-4min)  
+**When to use:** Before creating PR
+
+---
+
+## 🔍 Discovery Commands
+
+### `/find-command` ⭐ **NEW**
+**Purpose:** Search commands by keyword, category, or purpose  
+**Usage:** `/find-command [keyword]`  
+**Speed:** Fast (30s)  
+**When to use:** Need to find a command, discover commands
+
+**Searches by:**
+- Keyword (e.g., "filter", "test", "cleanup")
+- Category (e.g., "UI", "testing", "cleanup")
+- Purpose (e.g., "fix imports", "remove dead code")
+
+---
+
+### `/suggest-command` ⭐ **NEW**
+**Purpose:** Get context-aware command suggestions based on current file  
+**Usage:** `/suggest-command [file-path]`  
+**Speed:** Fast (30s - 1min)  
+**When to use:** Unsure which command to use, need recommendations
+
+**Analyzes:**
+- File content and patterns
+- Common issues detected
+- Context and structure
+
+**Suggests:**
+- Commands to fix issues
+- Commands to standardize
+- Related commands
+
+---
+
+## 🎨 Design System
+
+### `/design-token-check` ⭐
+**Purpose:** Audit design token usage and compliance  
+**Usage:** `/design-token-check [module]`  
+**Speed:** Moderate (2-4min)  
+**When to use:** Design token compliance, before PRs
+
+**New capabilities:**
+- Auto-fixes spacing violations
+- Auto-fixes color violations
+- Auto-fixes typography violations
+- Integration with `/fix-spacing-layout`
+
+---
+
+## 🔍 Utility Commands
+
+### `/command-usage-report` ⭐
+**Purpose:** Generate comprehensive usage report for all slash commands  
+**Usage:** `/command-usage-report`  
+**Speed:** Fast (30s - 1min)  
+**When to use:** Weekly/monthly analysis, identify popular commands
+
+**Generates:**
+- Top 10 most used commands
+- Unused commands (candidates for removal)
+- Usage trends and patterns
+- File associations
+- Recommendations
+
+---
+
+# Workflow Commands
+
+## Available Workflows
+
+### 1. `/standardize-page` - Complete Page Standardization
+**Purpose:** Standardize a page with all common fixes
+
+**Workflow:**
+1. `/fix-import-paths [path]`
+2. `/cleanup-unused-code [path]`
+3. `/fix-spacing-layout [path]`
+4. `/fix-filter-bar [path]`
+5. `/implement-view-modes [path]`
+6. `/fix-data-table [path]`
+7. `/fix-form-fields [path]` (if forms exist)
+8. `/test-page-quick` (verification)
+
+**Usage:**
+```
+/standardize-page src/features/email-marketing/pages/FormsPage.tsx
+```
+
+**Time:** ~5-10 minutes
+
+---
+
+### 2. `/pre-commit-checklist` - Pre-Commit Quality Check
+**Purpose:** Run all quality checks before committing
+
+**Workflow:**
+1. `/cleanup-unused-code [path]`
+2. `/fix-import-paths [path]`
+3. `/fix-spacing-layout [path]`
+4. `/design-token-check [module]`
+5. `/test-page-quick`
+6. `/pr-ready`
+
+**Usage:**
+```
+/pre-commit-checklist src/features/email-marketing/
+```
+
+**Time:** ~3-5 minutes
+
+---
+
+### 3. `/daily-cleanup` - Daily Code Cleanup
+**Purpose:** Quick daily cleanup routine
+
+**Workflow:**
+1. `/cleanup-unused-code [path]`
+2. `/fix-import-paths [path]`
+3. `/test-page-quick`
+
+**Usage:**
+```
+/daily-cleanup src/features/email-marketing/
+```
+
+**Time:** ~2-3 minutes
+
+---
+
+# Discovery Commands
+
+## `/find-command` - Command Search
+
+Search for commands by keyword, category, or purpose.
+
+**Usage:**
+```
+/find-command filter
+/find-command test
+/find-command cleanup
+```
+
+**Common Searches:**
+- **"fix imports"** → `/fix-import-paths`
+- **"fix spacing"** → `/fix-spacing-layout`
+- **"fix filter bar"** → `/fix-filter-bar`
+- **"test page"** → `/test-page-quick` or `/test-pages`
+- **"cleanup code"** → `/cleanup-unused-code`
+
+---
+
+## `/suggest-command` - Context-Aware Suggestions
+
+Get command suggestions based on current file/context.
+
+**Usage:**
+```
+/suggest-command src/features/email-marketing/pages/FormsPage.tsx
+/suggest-command  # Analyzes currently open file
+```
+
+**What It Detects:**
+- Code quality issues (unused imports, commented code)
+- UI component issues (filter bars, tables, forms)
+- Design system issues (hardcoded values)
+- Testing needs
+
+**What It Suggests:**
+- Commands to fix issues (high priority)
+- Commands to standardize (medium priority)
+- Commands for enhancements (low priority)
+
+---
+
+# Command Aliases
+
+## Quick Aliases Reference
+
+### Code Quality
+| Alias | Full Command | Purpose |
+|-------|-------------|---------|
+| `/clean` | `/cleanup-unused-code` | Remove unused code |
+| `/imports` | `/fix-import-paths` | Fix imports |
+| `/spacing` | `/fix-spacing-layout` | Fix spacing |
+| `/refactor` | `/refactor-cleanup` | Comprehensive cleanup |
+
+### UI Components
+| Alias | Full Command | Purpose |
+|-------|-------------|---------|
+| `/filter` | `/fix-filter-bar` | Fix filter bar |
+| `/table` | `/fix-data-table` | Fix data table |
+| `/form` | `/fix-form-fields` | Fix form fields |
+| `/badges` | `/standardize-status-badges` | Fix badges |
+| `/views` | `/implement-view-modes` | Add views |
+
+### Testing
+| Alias | Full Command | Purpose |
+|-------|-------------|---------|
+| `/test` | `/test-page-quick` | Quick test |
+| `/test-all` | `/test-pages` | Full test |
+| `/test-feature` | `/test-feature-pages` | Feature test |
+| `/debug` | `/debug-failing-page` | Debug page |
+
+### Workflow
+| Alias | Full Command | Purpose |
+|-------|-------------|---------|
+| `/pr` | `/pr-ready` | PR check |
+| `/preflight` | `/pre-flight-check` | Pre-flight check |
+| `/report` | `/command-usage-report` | Usage report |
+
+---
+
+# Command Comparison
+
+## Cleanup Commands
+
+### `/cleanup-unused-code` vs `/refactor-cleanup`
+
+| Aspect | `/cleanup-unused-code` | `/refactor-cleanup` |
+|--------|------------------------|---------------------|
+| **Purpose** | Remove unused code | Comprehensive refactoring |
+| **Speed** | Fast (30s-2min) | Moderate (2-5min) |
+| **When to Use** | Daily cleanup, before commits | Major refactoring |
+| **Best For** | Quick cleanup | Comprehensive improvements |
+
+**Recommendation:**
+- **Daily/regular cleanup** → `/cleanup-unused-code`
+- **Major refactoring** → `/refactor-cleanup`
+
+---
+
+### `/cleanup-unused-code` vs `/fix-import-paths`
+
+| Aspect | `/cleanup-unused-code` | `/fix-import-paths` |
+|--------|------------------------|---------------------|
+| **Purpose** | Remove unused code | Fix and standardize imports |
+| **Focus** | Unused code removal | Import path fixes |
+| **Best For** | General cleanup | Import-specific issues |
+
+**Recommendation:**
+- **General cleanup** → `/cleanup-unused-code`
+- **Import issues** → `/fix-import-paths`
+- **Both needed** → Run both (or use `/daily-cleanup` workflow)
+
+---
+
+## Testing Commands
+
+### `/test-page-quick` vs `/test-pages`
+
+| Aspect | `/test-page-quick` | `/test-pages` |
+|--------|-------------------|---------------|
+| **Purpose** | Quick smoke test | Full application test |
+| **Scope** | Critical pages only | All pages |
+| **Speed** | Fast (2min) | Slow (5-10min) |
+| **When to Use** | Daily checks, quick validation | Pre-deployment, weekly checks |
+
+**Recommendation:**
+- **Daily/quick check** → `/test-page-quick`
+- **Pre-deployment** → `/test-pages`
+
+---
+
+## Discovery Commands
+
+### `/find-command` vs `/suggest-command`
+
+| Aspect | `/find-command` | `/suggest-command` |
+|--------|-----------------|-------------------|
+| **Purpose** | Search for commands | Get context-aware suggestions |
+| **Method** | Keyword search | File/context analysis |
+| **When to Use** | Know what you need | Unsure what to use |
+| **Best For** | Finding known commands | Discovering commands |
+
+**Recommendation:**
+- **Know what you need** → `/find-command`
+- **Need suggestions** → `/suggest-command`
+
+---
+
+# Command Dependencies
+
+## Command Relationships
+
+### `/fix-filter-bar` Works Well With:
+- **`/implement-view-modes`** - Add views to filter bar
+- **`/add-filter-all-option`** - Add "All" option
+- **`/fix-data-table`** - Standardize table below filter
+
+**Recommended Sequence:**
+1. `/fix-filter-bar [path]`
+2. `/implement-view-modes [path]`
+3. `/fix-data-table [path]`
+
+---
+
+### `/cleanup-unused-code` Works Well With:
+- **`/fix-import-paths`** - Fix imports (removes unused)
+- **`/fix-spacing-layout`** - Fix spacing after cleanup
+
+**Recommended Sequence:**
+1. `/cleanup-unused-code [path]`
+2. `/fix-import-paths [path]`
+3. `/fix-spacing-layout [path]`
+
+---
+
+## Common Command Chains
+
+### Daily Development
+```
+/daily-cleanup [path]
+→ /cleanup-unused-code
+→ /fix-import-paths
+→ /test-page-quick
+```
+
+### Before Commit
+```
+/pre-commit-checklist [path]
+→ /cleanup-unused-code
+→ /fix-import-paths
+→ /fix-spacing-layout
+→ /design-token-check
+→ /test-page-quick
+→ /pr-ready
+```
+
+### Page Standardization
+```
+/standardize-page [path]
+→ /fix-import-paths
+→ /cleanup-unused-code
+→ /fix-spacing-layout
+→ /fix-filter-bar
+→ /implement-view-modes
+→ /fix-data-table
+→ /fix-form-fields
+→ /test-page-quick
+```
+
+---
+
+# Quick Start Guides
+
+## Scenario 1: First Day on Project
+**Goal:** Get familiar with the codebase and commands
+
+**Steps:**
+1. `/test-page-quick` - Verify everything works
+2. `/pre-flight-check` - Check environment setup
+3. `/find-command test` - Discover testing commands
+4. Browse command library - Learn available commands
+
+**Time:** ~5 minutes
+
+---
+
+## Scenario 2: Before Creating PR
+**Goal:** Ensure code quality before submitting PR
+
+**Steps:**
+1. `/pre-commit-checklist [your-changes-path]`
+2. Review changes
+3. Commit if all good
+
+**Time:** ~5-10 minutes
+
+**Aliases:**
+```bash
+/clean [path]
+/imports [path]
+/spacing [path]
+/test
+/pr
+```
+
+---
+
+## Scenario 3: Fixing a Broken Page
+**Goal:** Debug and fix a page that won't load
+
+**Steps:**
+1. `/debug-failing-page` - Deep analysis
+2. `/fix-page-bugs [page-path]` - Auto-fix common issues
+3. `/fix-import-paths [page-path]` - Fix imports
+4. `/test-page-quick` - Verify fix
+
+**Time:** ~5-10 minutes
+
+---
+
+## Scenario 4: Standardizing a New Page
+**Goal:** Ensure new page follows all standards
+
+**Steps:**
+1. Create page structure
+2. `/standardize-page [page-path]` - Complete standardization
+3. Review changes
+4. `/test-page-quick` - Verify
+
+**Time:** ~5-10 minutes
+
+---
+
+## Scenario 5: Daily Development Routine
+**Goal:** Start day with clean, working codebase
+
+**Steps:**
+1. `/test-page-quick` - Verify nothing broke
+2. `/daily-cleanup [your-work-path]` - Clean up yesterday's work
+3. Start new work
+
+**Time:** ~2-3 minutes
+
+**Aliases:**
+```bash
+/test
+/daily-cleanup [path]
+```
+
+---
+
+# Best Practices
+
+## ✅ DO
+
+### Daily Development
+- ✅ Run `/test-page-quick` every morning
+- ✅ Use `/daily-cleanup` at start/end of day
+- ✅ Use `/cleanup-unused-code` before commits
+- ✅ Use `/fix-import-paths` after moving files
+
+### Before Commits
+- ✅ Run `/pre-commit-checklist` before every commit
+- ✅ Use `/test-page-quick` to verify changes
+- ✅ Use `/design-token-check` for design compliance
+- ✅ Review changes before committing
+
+### Code Quality
+- ✅ Use `/cleanup-unused-code` regularly
+- ✅ Use `/fix-spacing-layout` for design compliance
+- ✅ Use `/refactor-cleanup` for major refactoring
+- ✅ Chain related commands for efficiency
+
+### UI Standardization
+- ✅ Use `/standardize-page` for new/legacy pages
+- ✅ Use `/fix-filter-bar` with `/implement-view-modes`
+- ✅ Use `/fix-data-table` with `/fix-table-columns` if needed
+- ✅ Verify with `/test-page-quick` after fixes
+
+### Command Discovery
+- ✅ Use `/find-command` to search for commands
+- ✅ Use `/suggest-command` when unsure what to use
+- ✅ Browse command library for complete reference
+- ✅ Check quick start guides for scenarios
+
+---
+
+## ❌ DON'T
+
+### General
+- ❌ Skip testing after fixes
+- ❌ Use deprecated commands (`/dead-code-removal`, `/remove-dead-code`)
+- ❌ Run commands on production without testing
+- ❌ Ignore error messages
+
+### Workflows
+- ❌ Skip verification steps in workflows
+- ❌ Run workflows without reviewing changes
+- ❌ Use workflows as substitute for understanding
+
+### Code Quality
+- ❌ Commit without running `/pre-commit-checklist`
+- ❌ Ignore design token violations
+- ❌ Leave unused code in commits
+- ❌ Skip import standardization
+
+---
+
+# Appendix
+
+## Command Categories
+
+### Code Quality & Cleanup (12 commands)
+- `/cleanup-unused-code`
+- `/fix-import-paths`
+- `/fix-spacing-layout`
+- `/refactor-cleanup`
+- And more...
+
+### UI Component Fixes (15 commands)
+- `/fix-filter-bar`
+- `/fix-data-table`
+- `/fix-form-fields`
+- `/standardize-status-badges`
+- And more...
+
+### Testing & Debugging (10 commands)
+- `/test-page-quick`
+- `/test-feature-pages`
+- `/test-pages`
+- `/debug-failing-page`
+- And more...
+
+### Development Workflow (8 commands)
+- `/standardize-page`
+- `/pre-commit-checklist`
+- `/daily-cleanup`
+- `/pr-ready`
+- And more...
+
+### Discovery Commands (2 commands)
+- `/find-command`
+- `/suggest-command`
+
+### Design System (5 commands)
+- `/design-token-check`
+- `/audit-charts`
+- And more...
+
+### Analytics & Reporting (3 commands)
+- `/contributor-report`
+- `/command-usage-report`
+- And more...
+
+---
+
+## Deprecated Commands
+
+### ⚠️ Use These Instead:
+
+| Deprecated | Replacement |
+|-----------|-------------|
+| `/dead-code-removal` | `/cleanup-unused-code` |
+| `/remove-dead-code` | `/cleanup-unused-code` |
+
+**Migration:**
+```bash
+# Old (deprecated)
+/dead-code-removal <module-name>
+/remove-dead-code <module-name>
+
+# New (recommended)
+/cleanup-unused-code <module-name> [--remove-console-logs]
+```
+
+---
+
+## Quick Decision Guide
+
+### "I need to clean up code"
+- **Quick cleanup** → `/cleanup-unused-code` or `/clean`
+- **Major refactoring** → `/refactor-cleanup`
+- **Daily routine** → `/daily-cleanup`
+
+### "I need to fix imports"
+- **Just imports** → `/fix-import-paths` or `/imports`
+- **General cleanup** → `/cleanup-unused-code` (also fixes imports)
+
+### "I need to test"
+- **Quick check** → `/test-page-quick` or `/test`
+- **One feature** → `/test-feature-pages`
+- **Everything** → `/test-pages` or `/test-all`
+
+### "I need to standardize"
+- **Complete page** → `/standardize-page`
+- **Before commit** → `/pre-commit-checklist`
+- **Daily maintenance** → `/daily-cleanup`
+
+### "I need to find a command"
+- **Search by keyword** → `/find-command`
+- **Get suggestions** → `/suggest-command`
+
+---
+
+## Time Estimates
+
+| Task | Commands | Time |
+|------|----------|------|
+| Daily Cleanup | 3 | 2-3min |
+| Before PR | 6 | 3-5min |
+| Standardize Page | 8 | 5-10min |
+| Fix Broken Page | 4-5 | 5-10min |
+| New Feature Setup | 4 | 5min + dev |
+| Module Audit | 5 | 15-20min |
+
+---
+
+## Related Documentation
+
+### Core Documentation
+- **Command Library:** `.cursor/commands/COMMAND_LIBRARY.md`
+- **Quick Reference:** `.cursor/commands/ALL_COMMANDS_CHEATSHEET.md`
+- **New Commands:** `.cursor/commands/NEW_COMMANDS_SUMMARY.md`
+
+### Discovery & Help
+- **Find Commands:** `.cursor/commands/find-command.md`
+- **Suggest Commands:** `.cursor/commands/suggest-command.md`
+- **Quick Start Guides:** `.cursor/commands/QUICK_START_GUIDES.md`
+- **Command Aliases:** `.cursor/commands/COMMAND_ALIASES.md`
+
+### Workflows & Relationships
+- **Command Workflows:** `.cursor/commands/COMMAND_WORKFLOWS.md`
+- **Command Comparison:** `.cursor/commands/COMMAND_COMPARISON.md`
+- **Command Dependencies:** `.cursor/commands/COMMAND_DEPENDENCIES.md`
+
+### Analysis & Tracking
+- **Usage Tracking:** `.cursor/commands/USAGE_TRACKING.md`
+- **Command Usage Report:** `.cursor/commands/command-usage-report.md`
+- **Duplicate Analysis:** `.cursor/commands/DUPLICATE_COMMANDS_ANALYSIS.md`
+
+---
+
+## Statistics
+
+- **Total Commands:** 75+
+- **New Commands:** 12
+- **New Workflows:** 3
+- **New Discovery:** 2
+- **Enhanced Commands:** 4
+- **Deprecated Commands:** 2
+- **Command Categories:** 8
+
+---
+
+**Complete reference guide - all commands in one place!** 📚
+
+This document contains everything you need to know about the slash commands library. Save it, print it, or reference it anytime!
+
+	

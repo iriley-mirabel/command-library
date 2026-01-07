@@ -1,0 +1,104 @@
+The "Daily Routine" Core Commands
+These are the small, fast tools your team will use every hour.
+
+File: .cursor/commands/cleanup.md
+
+Markdown
+
+# /cleanup-unused-code
+Remove unused imports, commented-out code, unused variables, and console logs. Standardize the file structure after cleaning.
+File: .cursor/commands/imports.md
+
+Markdown
+
+# /fix-import-paths
+Fix broken import paths and standardize the order: React first, then external libraries, then internal components, and types last. Convert relative paths to absolute `@/` paths.
+File: .cursor/commands/test.md
+
+Markdown
+
+# /test-page-quick
+Perform a rapid smoke test of the current page. Identify rendering errors, broken API calls, or console errors. Verify critical paths like Dashboard, Products, and Customers.
+2. UI Component Standardization
+Use these when building or fixing specific parts of the UI.
+
+File: .cursor/commands/filter-bar.md
+
+Markdown
+
+# /fix-filter-bar
+Standardize the filter bar. Ensure an "All" option exists, fix spacing using design tokens, and ensure view-mode switching logic is functional.
+File: .cursor/commands/data-table.md
+
+Markdown
+
+# /fix-data-table
+Standardize data table implementation. Fix column definitions, cell spacing, and status badge components. Remove legacy properties.
+File: .cursor/commands/forms.md
+
+Markdown
+
+# /fix-form-fields
+Replace plain HTML labels with the project's `Label` component. Standardize placeholders, add validation logic, and fix field spacing using design tokens.
+3. Workflow Chains (The "Power" Commands)
+These files tell Cursor to run multiple steps in a specific order.
+
+File: .cursor/commands/standardize.md
+
+Markdown
+
+# /standardize-page
+Perform a full page standardization. 
+1. Run /fix-import-paths.
+2. Run /cleanup-unused-code.
+3. Fix layout spacing and convert px to design tokens.
+4. Standardize UI components (Filters, Tables, Forms).
+5. Run /test-page-quick to verify.
+Wait for approval after each step.
+File: .cursor/commands/pr.md
+
+Markdown
+
+# /pr-ready
+Prepare the code for a Pull Request.
+1. Perform a final quality audit for logs and unused code.
+2. Summarize the changes made.
+3. Generate a Markdown PR description including a "Changes" list and "Commands Run" section.
+4. Confirm /test-page-quick was successful.
+4. Discovery & Help
+Help your team find the right command without checking a PDF.
+
+File: .cursor/commands/find.md
+
+Markdown
+
+# /find-command
+Search the command library. 
+- Categories: UI, Testing, Cleanup, Workflow.
+- Use cases: "How do I fix imports?" -> /fix-import-paths. "Ready to commit?" -> /pr-ready.
+5. Implementation Guide for the Team
+Create this file as a reference they can open in Cursor.
+
+File: .cursor/commands/HELP.md
+
+Markdown
+
+# 📚 Team Command Library
+To use these commands, type `/` followed by the command name in the Cursor Composer (Cmd+I) or Chat (Cmd+L).
+
+| Command | Purpose | Time |
+| :--- | :--- | :--- |
+| `/cleanup-unused-code` | Clean dead code/logs | 1-2m |
+| `/fix-import-paths` | Fix & sort imports | 1m |
+| `/standardize-page` | Full page refactor | 5-10m |
+| `/test-page-quick` | Smoke test | 2m |
+| `/pr-ready` | Generate PR description | 2m |
+
+**Rules:** - Always use `@Codebase` when running workflows.
+- Do not bypass the `/test-page-quick` step before pushing.
+Next Steps:
+Create the .cursor/commands/ folder.
+
+Create each .md file listed above.
+
+Commit this folder to Git. This ensures every developer on the team sees these commands in their / menu immediately.
