@@ -24,14 +24,23 @@ This repository contains:
    ```bash
    # Linux/Mac
    bash ~/cursor-commands/scripts/setup-commands.sh
+   ```
    
+   ```powershell
    # Windows (PowerShell)
-   ~/cursor-commands/scripts/setup-commands.ps1
+   & "$env:USERPROFILE\cursor-commands\scripts\setup-commands.ps1"
    ```
 
 3. **Daily updates**: Pull the latest commands each morning:
    ```bash
+   # Linux/Mac
    cd ~/cursor-commands
+   git pull
+   ```
+   
+   ```powershell
+   # Windows (PowerShell)
+   cd $env:USERPROFILE\cursor-commands
    git pull
    ```
 
@@ -190,11 +199,33 @@ git pull
 - ✅ Run `/pre-commit-checklist` before commits
 - ✅ Contribute improvements back to the library
 
-## 🚧 Coming Soon
+## 🌐 Web Portal
 
-- [ ] Next.js web portal for browsing/searching commands
-- [ ] Command export/download feature
-- [ ] Usage analytics
+The Next.js web portal is now live! Browse, search, and explore commands in a beautiful dark-mode interface.
+
+**Features:**
+- 🔍 Search and filter commands
+- 📱 Responsive design
+- 📋 Copy commands to clipboard
+- 🎨 Dark mode theme
+- ⚡ Fast static site
+
+**Running locally:**
+```bash
+cd app
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view the portal.
+
+**Deploy to Vercel:** Push to GitHub and import the `app` directory on Vercel.
+
+## 🚧 Future Enhancements
+
+- [ ] Download all commands as ZIP file
+- [ ] Usage analytics and tracking
+- [ ] Command ratings/favorites
 - [ ] Command versioning
 
 ## 📄 License

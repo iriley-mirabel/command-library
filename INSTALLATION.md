@@ -42,9 +42,11 @@ Navigate to your project directory and run the setup script:
 ```bash
 # Linux/Mac
 bash ~/cursor-commands/scripts/setup-commands.sh
+```
 
+```powershell
 # Windows (PowerShell)
-~/$env:USERPROFILE/cursor-commands/scripts/setup-commands.ps1
+& "$env:USERPROFILE\cursor-commands\scripts\setup-commands.ps1"
 ```
 
 **What the script does:**
