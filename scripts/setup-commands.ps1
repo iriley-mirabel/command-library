@@ -36,31 +36,104 @@ if (-not (Test-Path ".cursor")) {
 
 # Check if .cursor/commands already exists
 if (Test-Path ".cursor\commands") {
-    Write-Host ".cursor/commands already exists" -ForegroundColor Yellow
-    $replace = Read-Host "Replace with symlink to command library? (y/n)"
-    if ($replace -eq "y" -or $replace -eq "Y") {
-        Remove-Item ".cursor\commands" -Recurse -Force
+    $item = Get-Item ".cursor\commands" -ErrorAction SilentlyContinue
+    $isSymlink = $item.LinkType -eq "SymbolicLink"
+    
+    if ($isSymlink) {
+        # Already a symlink - ask if they want to keep it or replace
+        Write-Host ".cursor/commands is already a symlink" -ForegroundColor Yellow
+        $replace = Read-Host "Replace with new symlink? (y/n)"
+        if ($replace -eq "y" -or $replace -eq "Y") {
+            Remove-Item ".cursor\commands" -Force
+            Write-Host "Creating symlink to command library..."
+            try {
+                New-Item -ItemType SymbolicLink -Path ".cursor\commands" -Target $CommandsDir | Out-Null
+            } catch {
+                Write-Host "Failed to create symlink. You may need to run PowerShell as Administrator." -ForegroundColor Red
+                Write-Host "   Error: $_" -ForegroundColor Red
+                exit 1
+            }
+        } else {
+            Write-Host "Keeping existing symlink."
+        }
     } else {
-        Write-Host "Aborted."
-        exit 1
+        # Directory exists - merge commands instead of replacing
+        Write-Host ".cursor/commands already exists with project-specific commands" -ForegroundColor Yellow
+        Write-Host "Merging library commands with existing commands..."
+        Write-Host "  - Existing commands will be preserved"
+        Write-Host "  - Library commands will be added"
+        Write-Host "  - Commands with the same name will be replaced with library versions"
+        Write-Host ""
+        
+        # Count existing commands
+        $existingCount = (Get-ChildItem ".cursor\commands" -Filter "*.md" -File).Count
+        
+        # Copy library commands, preserving existing ones that don't conflict
+        $libraryCommands = Get-ChildItem $CommandsDir -Filter "*.md" -File
+        $added = 0
+        $replaced = 0
+        $kept = 0
+        
+        foreach ($libCmd in $libraryCommands) {
+            $cmdName = $libCmd.Name
+            $projectCmd = Join-Path ".cursor\commands" $cmdName
+            
+            if (Test-Path $projectCmd) {
+                # Command exists - check if it's different
+                $libContent = Get-FileHash $libCmd.FullName -Algorithm MD5
+                $projContent = Get-FileHash $projectCmd -Algorithm MD5
+                
+                if ($libContent.Hash -ne $projContent.Hash) {
+                    Write-Host "  Replacing: $cmdName (library version)" -ForegroundColor Yellow
+                    Copy-Item $libCmd.FullName $projectCmd -Force
+                    $replaced++
+                } else {
+                    Write-Host "  Keeping: $cmdName (identical)" -ForegroundColor Green
+                    $kept++
+                }
+            } else {
+                # New command from library
+                Write-Host "  Adding: $cmdName" -ForegroundColor Cyan
+                Copy-Item $libCmd.FullName $projectCmd
+                $added++
+            }
+        }
+        
+        # Count final commands
+        $finalCount = (Get-ChildItem ".cursor\commands" -Filter "*.md" -File).Count
+        $projectOnly = $finalCount - $libraryCommands.Count
+        
+        Write-Host ""
+        Write-Host "Merge complete!" -ForegroundColor Green
+        Write-Host "  - Total commands: $finalCount"
+        Write-Host "  - Added: $added"
+        Write-Host "  - Replaced: $replaced"
+        Write-Host "  - Kept (identical): $kept"
+        if ($projectOnly -gt 0) {
+            Write-Host "  - Project-specific: $projectOnly (preserved)" -ForegroundColor Cyan
+        }
+        Write-Host ""
+        Write-Host "Note: Commands are copied (not symlinked) to preserve project-specific commands."
+        Write-Host "To update library commands, run this script again."
     }
-}
-
-# Create symlink (requires admin on Windows)
-Write-Host "Creating symlink to command library..."
-try {
-    New-Item -ItemType SymbolicLink -Path ".cursor\commands" -Target $CommandsDir | Out-Null
-} catch {
-    Write-Host "Failed to create symlink. You may need to run PowerShell as Administrator." -ForegroundColor Red
-    Write-Host "   Error: $_" -ForegroundColor Red
-    Write-Host ""
-    Write-Host "Alternative: Copy commands instead of symlinking"
-    $copy = Read-Host "Copy commands instead? (y/n)"
-    if ($copy -eq "y" -or $copy -eq "Y") {
-        Copy-Item -Path $CommandsDir -Destination ".cursor\commands" -Recurse
-        Write-Host "Commands copied (not symlinked). Remember to update manually." -ForegroundColor Yellow
-    } else {
-        exit 1
+} else {
+    # No existing directory - try to create symlink
+    Write-Host "Creating symlink to command library..."
+    try {
+        New-Item -ItemType SymbolicLink -Path ".cursor\commands" -Target $CommandsDir | Out-Null
+    } catch {
+        Write-Host "Failed to create symlink. You may need to run PowerShell as Administrator." -ForegroundColor Red
+        Write-Host "   Error: $_" -ForegroundColor Red
+        Write-Host ""
+        Write-Host "Alternative: Copy commands instead of symlinking"
+        $copy = Read-Host "Copy commands instead? (y/n)"
+        if ($copy -eq "y" -or $copy -eq "Y") {
+            New-Item -ItemType Directory -Path ".cursor\commands" | Out-Null
+            Copy-Item -Path "$CommandsDir\*" -Destination ".cursor\commands" -Recurse -Force
+            Write-Host "Commands copied (not symlinked). Remember to update manually." -ForegroundColor Yellow
+        } else {
+            exit 1
+        }
     }
 }
 

@@ -43,21 +43,70 @@ if [ ! -d ".cursor" ]; then
 fi
 
 # Check if .cursor/commands already exists
-if [ -d ".cursor/commands" ] || [ -L ".cursor/commands" ]; then
-    echo -e "${YELLOW}⚠️  .cursor/commands already exists${NC}"
-    read -p "Replace with symlink to command library? (y/n) " -n 1 -r
+if [ -L ".cursor/commands" ]; then
+    # Already a symlink - ask if they want to keep it or replace
+    echo -e "${YELLOW}⚠️  .cursor/commands is already a symlink${NC}"
+    read -p "Replace with new symlink? (y/n) " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        rm -rf .cursor/commands
+        rm .cursor/commands
+        echo "🔗 Creating symlink to command library..."
+        ln -s "$COMMANDS_DIR" .cursor/commands
     else
-        echo "Aborted."
-        exit 1
+        echo "Keeping existing symlink."
     fi
+elif [ -d ".cursor/commands" ]; then
+    # Directory exists - merge commands instead of replacing
+    echo -e "${YELLOW}⚠️  .cursor/commands already exists with project-specific commands${NC}"
+    echo "Merging library commands with existing commands..."
+    echo "  - Existing commands will be preserved"
+    echo "  - Library commands will be added"
+    echo "  - Commands with the same name will be replaced with library versions"
+    echo ""
+    
+    # Backup existing commands count
+    EXISTING_COUNT=$(find .cursor/commands -maxdepth 1 -name "*.md" | wc -l)
+    
+    # Copy library commands, but preserve existing ones that don't conflict
+    for lib_cmd in "$COMMANDS_DIR"/*.md; do
+        if [ -f "$lib_cmd" ]; then
+            cmd_name=$(basename "$lib_cmd")
+            project_cmd=".cursor/commands/$cmd_name"
+            
+            if [ -f "$project_cmd" ]; then
+                # Command exists - check if it's different
+                if ! cmp -s "$lib_cmd" "$project_cmd"; then
+                    echo -e "  ${YELLOW}⚠️  Replacing: $cmd_name (library version)${NC}"
+                    cp "$lib_cmd" "$project_cmd"
+                else
+                    echo -e "  ✓ Keeping: $cmd_name (identical)"
+                fi
+            else
+                # New command from library
+                echo -e "  ➕ Adding: $cmd_name"
+                cp "$lib_cmd" "$project_cmd"
+            fi
+        fi
+    done
+    
+    # Count final commands
+    FINAL_COUNT=$(find .cursor/commands -maxdepth 1 -name "*.md" | wc -l)
+    PROJECT_ONLY=$((FINAL_COUNT - $(find "$COMMANDS_DIR" -maxdepth 1 -name "*.md" | wc -l)))
+    
+    echo ""
+    echo -e "${GREEN}✓ Merge complete!${NC}"
+    echo "  - Total commands: $FINAL_COUNT"
+    if [ $PROJECT_ONLY -gt 0 ]; then
+        echo -e "  - Project-specific: $PROJECT_ONLY (preserved)"
+    fi
+    echo ""
+    echo "Note: Commands are copied (not symlinked) to preserve project-specific commands."
+    echo "To update library commands, run this script again."
+else
+    # No existing directory - create symlink
+    echo "🔗 Creating symlink to command library..."
+    ln -s "$COMMANDS_DIR" .cursor/commands
 fi
-
-# Create symlink
-echo "🔗 Creating symlink to command library..."
-ln -s "$COMMANDS_DIR" .cursor/commands
 
 # Add to .gitignore if it doesn't exist
 if [ ! -f ".gitignore" ]; then
