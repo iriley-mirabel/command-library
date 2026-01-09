@@ -4,10 +4,9 @@ import { CommandMetadata } from '../utils/commands';
 
 interface CommandCardProps {
   command: CommandMetadata;
-  category: string;
 }
 
-export default function CommandCard({ command, category }: CommandCardProps) {
+export default function CommandCard({ command }: CommandCardProps) {
   const getSpeedColor = (speed?: string) => {
     if (!speed) return 'text-zinc-400';
     if (speed.toLowerCase().includes('fast')) return 'text-green-400';
@@ -15,7 +14,8 @@ export default function CommandCard({ command, category }: CommandCardProps) {
     return 'text-orange-400';
   };
 
-  const getCategoryColor = (cat: string) => {
+  const getCategoryColor = (cat?: string) => {
+    if (!cat) return 'bg-zinc-800 text-zinc-400 border-zinc-700';
     const colors: Record<string, string> = {
       'Code Quality & Cleanup': 'bg-blue-500/20 text-blue-300 border-blue-500/30',
       'UI Component Fixes': 'bg-purple-500/20 text-purple-300 border-purple-500/30',
@@ -43,9 +43,11 @@ export default function CommandCard({ command, category }: CommandCardProps) {
         </p>
 
         <div className="flex items-center gap-2 flex-wrap">
-          <span className={`text-xs px-2.5 py-1 rounded-md border ${getCategoryColor(category)}`}>
-            {category}
-          </span>
+          {command.category && (
+            <span className={`text-xs px-2.5 py-1 rounded-md border ${getCategoryColor(command.category)}`}>
+              {command.category}
+            </span>
+          )}
           {command.speed && (
             <span className="flex items-center gap-1 text-xs text-zinc-500">
               <Clock className="h-3 w-3" />

@@ -1,0 +1,82 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2024",
+  "totalCommands": 20,
+  "categories": {
+    "code-quality": {
+      "name": "Code Quality & Cleanup",
+      "commands": [
+        "cleanup-unused-code",
+        "fix-import-paths",
+        "fix-spacing-layout",
+        "refactor-cleanup"
+      ]
+    },
+    "ui-components": {
+      "name": "UI Component Fixes",
+      "commands": [
+        "fix-filter-bar",
+        "fix-data-table",
+        "fix-form-fields",
+        "implement-view-modes",
+        "standardize-status-badges"
+      ]
+    },
+    "testing": {
+      "name": "Testing & Debugging",
+      "commands": [
+        "test-page-quick",
+        "test-feature-pages",
+        "test-pages",
+        "debug-failing-page"
+      ]
+    },
+    "workflows": {
+      "name": "Development Workflows",
+      "commands": [
+        "standardize-page",
+        "pre-commit-checklist",
+        "daily-cleanup",
+        "pr-ready"
+      ]
+    },
+    "discovery": {
+      "name": "Discovery & Help",
+      "commands": [
+        "find-command",
+        "suggest-command"
+      ]
+    },
+    "design-system": {
+      "name": "Design System",
+      "commands": [
+        "design-token-check"
+      ]
+    },
+    "utilities": {
+      "name": "Utilities",
+      "commands": [
+        "command-usage-report"
+      ]
+    }
+  },
+  "mostUsed": [
+    "cleanup-unused-code",
+    "fix-import-paths",
+    "standardize-page",
+    "test-page-quick",
+    "pre-commit-checklist",
+    "pr-ready"
+  ],
+  "aliases": {
+    "clean": "cleanup-unused-code",
+    "imports": "fix-import-paths",
+    "spacing": "fix-spacing-layout",
+    "filter": "fix-filter-bar",
+    "table": "fix-data-table",
+    "form": "fix-form-fields",
+    "test": "test-page-quick",
+    "pr": "pr-ready"
+  }
+}
+

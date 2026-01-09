@@ -1,4 +1,4 @@
-import matter from 'gray-matter';
+// Manual markdown parsing (browser-compatible, no gray-matter needed)
 
 export interface CommandMetadata {
   id: string;
@@ -13,40 +13,120 @@ export interface CommandMetadata {
   content: string;
 }
 
-// In a real app, this would fetch from a server or use fs in Node
-// For now, we'll use a simple fetch to get the markdown files
 export async function getAllCommands(): Promise<CommandMetadata[]> {
-  // Since we're in a browser, we'll need to load commands differently
-  // For now, let's create a simple mapping of commands
-  // In production, you'd fetch this from an API or bundle it
-  
-  // For demo, returning empty array - we'll populate from the actual .md files
-  // You can copy the command files to public/commands/ and fetch them
-  const commands: CommandMetadata[] = [];
-  
-  // If you have commands in public/commands/*.md, you could fetch them:
-  // const response = await fetch('/commands/index.json');
-  // const commandList = await response.json();
-  // ... then fetch each command
-  
-  return commands;
+  try {
+    // Load the index to get all command slugs
+    const indexResponse = await fetch('/commands/index.json');
+    if (!indexResponse.ok) {
+      console.error('Failed to load commands index');
+      return [];
+    }
+    
+    const index = await indexResponse.json();
+    const allCommandSlugs: string[] = [];
+    
+    // Collect all command slugs from categories
+    Object.values(index.categories).forEach((category: any) => {
+      if (category.commands) {
+        allCommandSlugs.push(...category.commands);
+      }
+    });
+    
+    // Fetch and parse each command file
+    const commandPromises = allCommandSlugs.map(async (slug) => {
+      try {
+        const response = await fetch(`/commands/${slug}.md`);
+        if (!response.ok) {
+          console.warn(`Failed to load command: ${slug}`);
+          return null;
+        }
+        
+        const text = await response.text();
+        
+        // Parse the command name from the first line (e.g., "# /cleanup-unused-code")
+        const firstLine = text.split('\n')[0];
+        const commandName = firstLine.replace(/^#\s*\//, '').trim();
+        
+        // Extract description (second line)
+        const lines = text.split('\n').filter(line => line.trim());
+        const description = lines[1] || '';
+        
+        // Extract metadata from sections
+        const purposeMatch = text.match(/##\s*Purpose\s*\n([^\n]+)/i);
+        const usageMatch = text.match(/##\s*Usage\s*\n`([^`]+)`/i);
+        const speedMatch = text.match(/##\s*Speed\s*\n([^\n]+)/i);
+        const whenMatch = text.match(/##\s*When to use\s*\n([^\n]+)/i);
+        
+        // Get category from index
+        let category = 'Other';
+        for (const [catKey, catData] of Object.entries(index.categories)) {
+          if ((catData as any).commands?.includes(slug)) {
+            category = (catData as any).name;
+            break;
+          }
+        }
+        
+        return {
+          id: slug,
+          name: commandName,
+          title: `/${commandName}`,
+          description,
+          purpose: purposeMatch?.[1]?.trim(),
+          usage: usageMatch?.[1]?.trim(),
+          speed: speedMatch?.[1]?.trim(),
+          whenToUse: whenMatch?.[1]?.trim(),
+          category,
+          content: text,
+        };
+      } catch (error) {
+        console.error(`Error loading command ${slug}:`, error);
+        return null;
+      }
+    });
+    
+    const commands = await Promise.all(commandPromises);
+    return commands.filter((cmd): cmd is CommandMetadata => cmd !== null);
+  } catch (error) {
+    console.error('Error loading commands:', error);
+    return [];
+  }
 }
 
 export async function getCommandBySlug(slug: string): Promise<CommandMetadata | null> {
   try {
+    // Load index to get category
+    let category = 'Other';
+    try {
+      const indexResponse = await fetch('/commands/index.json');
+      if (indexResponse.ok) {
+        const index = await indexResponse.json();
+        for (const [catKey, catData] of Object.entries(index.categories)) {
+          if ((catData as any).commands?.includes(slug)) {
+            category = (catData as any).name;
+            break;
+          }
+        }
+      }
+    } catch (e) {
+      // Index not available, use default
+    }
+
     const response = await fetch(`/commands/${slug}.md`);
-    const text = await response.text();
-    const { data, content } = matter(text);
+    if (!response.ok) {
+      return null;
+    }
     
-    const firstLine = content.split('\n')[0];
+    const text = await response.text();
+    
+    const firstLine = text.split('\n')[0];
     const commandName = firstLine.replace(/^#\s*\//, '').trim();
-    const lines = content.split('\n').filter(line => line.trim());
+    const lines = text.split('\n').filter(line => line.trim());
     const description = lines[1] || '';
     
-    const purposeMatch = content.match(/##\s*Purpose\s*\n([^\n]+)/);
-    const usageMatch = content.match(/##\s*Usage\s*\n`([^`]+)`/);
-    const speedMatch = content.match(/##\s*Speed\s*\n([^\n]+)/);
-    const whenMatch = content.match(/##\s*When to use\s*\n([^\n]+)/);
+    const purposeMatch = text.match(/##\s*Purpose\s*\n([^\n]+)/i);
+    const usageMatch = text.match(/##\s*Usage\s*\n`([^`]+)`/i);
+    const speedMatch = text.match(/##\s*Speed\s*\n([^\n]+)/i);
+    const whenMatch = text.match(/##\s*When to use\s*\n([^\n]+)/i);
     
     return {
       id: slug,
@@ -57,9 +137,11 @@ export async function getCommandBySlug(slug: string): Promise<CommandMetadata | 
       usage: usageMatch?.[1]?.trim(),
       speed: speedMatch?.[1]?.trim(),
       whenToUse: whenMatch?.[1]?.trim(),
-      content,
+      category,
+      content: text,
     };
   } catch (error) {
+    console.error(`Error loading command ${slug}:`, error);
     return null;
   }
 }
