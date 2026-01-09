@@ -57,7 +57,8 @@
     "utilities": {
       "name": "Utilities",
       "commands": [
-        "command-usage-report"
+        "command-usage-report",
+        "a-dummy-command"
       ]
     }
   },
