@@ -74,7 +74,30 @@ Optional examples of usage
 2. **Open Cursor** and try the new command
 3. **Verify** it works as expected
 
-### Step 4: Update Documentation
+### Step 4: Update Index
+
+**Required:** Update `library/commands-index.json`:
+
+1. Add the command slug to the appropriate category:
+   ```json
+   {
+     "categories": {
+       "code-quality": {
+         "name": "Code Quality & Cleanup",
+         "commands": [
+           "cleanup-unused-code",
+           "my-new-command"  // Add here
+         ]
+       }
+     }
+   }
+   ```
+
+2. If it's a commonly used command, add to `mostUsed` array
+
+3. If it has aliases, add to `aliases` object
+
+### Step 5: Update Documentation (Optional)
 
 If needed, update:
 - `masterlistreference.txt` - Add to the appropriate category
@@ -100,6 +123,71 @@ Commands should include:
 5. **Speed** - Time estimate
 6. **When to use** - Use cases
 7. **Instructions** - Step-by-step guidance
+
+## 📦 Archiving Commands
+
+When a command is no longer useful, has been replaced, or is deprecated, archive it instead of deleting it.
+
+### How to Archive a Command
+
+1. **Move the file** to the archive directory:
+   ```bash
+   git mv .cursor/commands/old-command.md .cursor/commands/archive/old-command.md
+   ```
+
+2. **Add archive note** to the file (at the top):
+   ```markdown
+   > **⚠️ ARCHIVED** - This command has been archived on [date]. Reason: [why it was archived]
+   
+   # /old-command
+   ...
+   ```
+
+3. **Update `library/commands-index.json`**:
+   - Remove the command from its category's `commands` array
+   - Add it to the `archived` array:
+   ```json
+   {
+     "archived": ["old-command"],
+     "categories": {
+       "category-name": {
+         "commands": ["other-command"] // Remove old-command from here
+       }
+     }
+   }
+   ```
+
+4. **Commit with clear message**:
+   ```bash
+   git commit -m "Archive: old-command (replaced by new-command)"
+   ```
+
+### When to Archive
+
+- ✅ Command has been replaced by a better version
+- ✅ Command is no longer relevant to current workflows
+- ✅ Command is deprecated but might be useful for reference
+- ✅ Command was experimental and didn't work out
+
+### Restoring Archived Commands
+
+If you need to restore an archived command:
+
+1. **Move file back**:
+   ```bash
+   git mv .cursor/commands/archive/old-command.md .cursor/commands/old-command.md
+   ```
+
+2. **Update `library/commands-index.json`**:
+   - Remove from `archived` array
+   - Add back to appropriate category's `commands` array
+
+3. **Remove archive note** from the file
+
+4. **Commit**:
+   ```bash
+   git commit -m "Restore: old-command"
+   ```
 
 ## 🔄 Workflow Commands
 
@@ -133,9 +221,12 @@ Organize commands by category:
 
 - [ ] Command file follows the template
 - [ ] Command tested in a real project
-- [ ] Documentation updated (if needed)
+- [ ] `library/commands-index.json` updated with new command
+- [ ] All required sections present (Purpose, Usage, Speed, When to use)
+- [ ] Command name matches filename (e.g., `/my-command` → `my-command.md`)
 - [ ] No typos or formatting issues
 - [ ] Command name is clear and descriptive
+- [ ] GitHub Actions validation passes (runs automatically on PR)
 
 ## 🎯 Command Naming
 

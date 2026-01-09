@@ -3,10 +3,10 @@ frontend:
   phases:
     preBuild:
       commands:
-        # Copy command files to web portal public directory
+        # Copy command files to web portal public directory (excluding archive)
         - echo "Copying command files to web portal..."
         - mkdir -p app/web-portal/public/commands
-        - cp .cursor/commands/*.md app/web-portal/public/commands/ || true
+        - find .cursor/commands -maxdepth 1 -name "*.md" -not -name "README.md" -exec cp {} app/web-portal/public/commands/ \; || true
         - cp library/commands-index.json app/web-portal/public/commands/index.json || true
         - cd app/web-portal
         - npm ci

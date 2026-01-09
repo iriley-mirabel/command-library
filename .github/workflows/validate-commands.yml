@@ -1,0 +1,159 @@
+name: Validate Commands
+
+on:
+  pull_request:
+    paths:
+      - '.cursor/commands/**'
+      - 'library/commands-index.json'
+  push:
+    branches:
+      - main
+    paths:
+      - '.cursor/commands/**'
+      - 'library/commands-index.json'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate command files
+        run: |
+          echo "Validating command files..."
+          
+          # Check that all commands in index.json exist
+          echo "Checking command files exist..."
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+            const index = JSON.parse(fs.readFileSync('library/commands-index.json', 'utf8'));
+            const commandsDir = '.cursor/commands';
+          const archiveDir = '.cursor/commands/archive';
+          
+          // Collect all command slugs
+          const allCommands = [];
+          Object.values(index.categories || {}).forEach(cat => {
+            if (cat.commands) allCommands.push(...cat.commands);
+          });
+          
+          // Check archived commands
+          const archived = index.archived || [];
+          
+          // Validate active commands exist
+          let errors = [];
+          allCommands.forEach(slug => {
+            const filePath = path.join(commandsDir, slug + '.md');
+            if (!fs.existsSync(filePath)) {
+              errors.push(\`Missing command file: \${filePath}\`);
+            }
+          });
+          
+          // Validate archived commands are in archive directory
+          archived.forEach(slug => {
+            const archivePath = path.join(archiveDir, slug + '.md');
+            const activePath = path.join(commandsDir, slug + '.md');
+            if (fs.existsSync(activePath)) {
+              errors.push(\`Archived command still in active directory: \${slug}\`);
+            }
+            if (!fs.existsSync(archivePath)) {
+              errors.push(\`Archived command file not found: \${archivePath}\`);
+            }
+          });
+          
+          if (errors.length > 0) {
+            console.error('Validation errors:');
+            errors.forEach(e => console.error('  -', e));
+            process.exit(1);
+          }
+          
+          console.log(\`✓ Validated \${allCommands.length} active commands\`);
+          if (archived.length > 0) {
+            console.log(\`✓ Validated \${archived.length} archived commands\`);
+          }
+          "
+
+      - name: Validate command format
+        run: |
+          echo "Validating command file format..."
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+            const commandsDir = '.cursor/commands';
+            const files = fs.readdirSync(commandsDir)
+              .filter(f => f.endsWith('.md') && f !== 'README.md');
+            
+            let errors = [];
+            const requiredSections = ['Purpose', 'Usage', 'Speed', 'When to use'];
+            
+            files.forEach(file => {
+              const filePath = path.join(commandsDir, file);
+              const content = fs.readFileSync(filePath, 'utf8');
+              
+              // Check for command name in first line
+              if (!content.match(/^#\s*\/[\w-]+/m)) {
+                errors.push(\`\${file}: Missing command name in first line (format: # /command-name)\`);
+              }
+              
+              // Check for required sections
+              requiredSections.forEach(section => {
+                const regex = new RegExp(\`##\\\\s*\${section}\`, 'i');
+                if (!regex.test(content)) {
+                  errors.push(\`\${file}: Missing required section: \${section}\`);
+                }
+              });
+            });
+            
+            if (errors.length > 0) {
+              console.error('Format validation errors:');
+              errors.forEach(e => console.error('  -', e));
+              process.exit(1);
+            }
+            
+            console.log(\`✓ Validated format of \${files.length} command files\`);
+          "
+
+      - name: Check for duplicate commands
+        run: |
+          echo "Checking for duplicate commands..."
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+            const index = JSON.parse(fs.readFileSync('library/commands-index.json', 'utf8'));
+            
+            const allCommands = [];
+            Object.values(index.categories || {}).forEach(cat => {
+              if (cat.commands) {
+                cat.commands.forEach(cmd => {
+                  if (allCommands.includes(cmd)) {
+                    console.error(\`Duplicate command found: \${cmd}\`);
+                    process.exit(1);
+                  }
+                  allCommands.push(cmd);
+                });
+              }
+            });
+            
+            console.log('✓ No duplicate commands found');
+          "
+
+      - name: Validate JSON structure
+        run: |
+          echo "Validating commands-index.json structure..."
+          node -e "
+            const fs = require('fs');
+            const index = JSON.parse(fs.readFileSync('library/commands-index.json', 'utf8'));
+            
+            if (!index.categories) {
+              console.error('Missing categories in index.json');
+              process.exit(1);
+            }
+            
+            if (!Array.isArray(index.archived)) {
+              console.error('archived must be an array in index.json');
+              process.exit(1);
+            }
+            
+            console.log('✓ JSON structure is valid');
+          "

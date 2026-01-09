@@ -23,12 +23,17 @@ export async function getAllCommands(): Promise<CommandMetadata[]> {
     }
     
     const index = await indexResponse.json();
+    const archivedCommands = new Set(index.archived || []);
     const allCommandSlugs: string[] = [];
     
-    // Collect all command slugs from categories
+    // Collect all command slugs from categories (excluding archived)
     Object.values(index.categories).forEach((category: any) => {
       if (category.commands) {
-        allCommandSlugs.push(...category.commands);
+        // Filter out archived commands
+        const activeCommands = category.commands.filter(
+          (slug: string) => !archivedCommands.has(slug)
+        );
+        allCommandSlugs.push(...activeCommands);
       }
     });
     
@@ -94,12 +99,19 @@ export async function getAllCommands(): Promise<CommandMetadata[]> {
 
 export async function getCommandBySlug(slug: string): Promise<CommandMetadata | null> {
   try {
-    // Load index to get category
+    // Load index to get category and check if archived
     let category = 'Other';
+    let isArchived = false;
     try {
       const indexResponse = await fetch('/commands/index.json');
       if (indexResponse.ok) {
         const index = await indexResponse.json();
+        // Check if command is archived
+        isArchived = (index.archived || []).includes(slug);
+        if (isArchived) {
+          return null; // Don't load archived commands
+        }
+        // Get category
         for (const [catKey, catData] of Object.entries(index.categories)) {
           if ((catData as any).commands?.includes(slug)) {
             category = (catData as any).name;
