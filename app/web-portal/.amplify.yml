@@ -1,0 +1,21 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        # Copy command files from parent directory
+        - echo "Copying command files to web portal..."
+        - mkdir -p public/commands
+        - cp ../../.cursor/commands/*.md public/commands/ || true
+        - cp ../../library/commands-index.json public/commands/index.json || true
+        - npm ci
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*

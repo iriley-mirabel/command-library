@@ -17,7 +17,6 @@
     "vite": "^7.2.4"
   },
   "dependencies": {
-    "gray-matter": "^4.0.3",
     "lucide-react": "^0.562.0",
     "react-router-dom": "^7.12.0"
   }
