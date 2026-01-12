@@ -19,8 +19,6 @@ frontend:
       commands:
         - echo "Build phase - Current directory"
         - pwd
-        - echo "Checking for app/web-portal"
-        - ls -la app/web-portal/ || echo "Directory listing failed"
         - echo "Building web portal"
         - cd app/web-portal && npm run build
   artifacts:
