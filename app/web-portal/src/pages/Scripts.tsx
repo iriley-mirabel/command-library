@@ -40,9 +40,8 @@ export default function Scripts() {
     return matchesSearch && matchesCategory && matchesPlatform;
   });
 
-  // Get unique categories and platforms
+  // Get unique categories
   const categories = Array.from(new Set(scripts.map(s => s.category).filter(Boolean)));
-  const platforms = ['windows', 'unix', 'both'];
 
   return (
     <div className="min-h-screen bg-zinc-950">
