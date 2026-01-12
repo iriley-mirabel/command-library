@@ -90,7 +90,13 @@ export async function getAllCommands(): Promise<CommandMetadata[]> {
     });
     
     const commands = await Promise.all(commandPromises);
-    return commands.filter((cmd): cmd is CommandMetadata => cmd !== null && cmd !== undefined);
+    const validCommands: CommandMetadata[] = [];
+    for (const cmd of commands) {
+      if (cmd !== null && cmd !== undefined) {
+        validCommands.push(cmd);
+      }
+    }
+    return validCommands;
   } catch (error) {
     console.error('Error loading commands:', error);
     return [];
