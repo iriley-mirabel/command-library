@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { getScriptBySlug, ScriptMetadata } from '../utils/scripts';
-import { ArrowLeft, Download, Windows, Terminal, Copy, Check } from 'lucide-react';
+import { ArrowLeft, Download, Monitor, Terminal, Copy, Check } from 'lucide-react';
 
 export default function ScriptDetail() {
   const { slug } = useParams<{ slug: string }>();

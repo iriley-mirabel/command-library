@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FileCode, Windows, Terminal } from 'lucide-react';
+import { FileCode, Monitor, Terminal } from 'lucide-react';
 import type { ScriptMetadata } from '../utils/scripts';
 
 interface ScriptCardProps {
@@ -9,7 +9,7 @@ interface ScriptCardProps {
 export default function ScriptCard({ script }: ScriptCardProps) {
   const getPlatformIcon = () => {
     if (script.platform === 'windows') {
-      return <Windows className="h-4 w-4" />;
+      return <Monitor className="h-4 w-4" />;
     } else if (script.platform === 'unix') {
       return <Terminal className="h-4 w-4" />;
     }
