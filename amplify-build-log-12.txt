@@ -1,0 +1,73 @@
+2026-01-12T17:53:04.877Z [INFO]: # Build environment configured with Standard build compute type: 8GiB Memory, 4vCPUs, 128GB Disk Space
+2026-01-12T17:53:05.385Z [INFO]: # Cloning repository: git@github.com:iriley-mirabel/command-library.git
+2026-01-12T17:53:06.060Z [INFO]: 
+2026-01-12T17:53:06.061Z [INFO]: Cloning into 'command-library'...
+2026-01-12T17:53:06.061Z [INFO]: # Switching to commit: 1feb31736cef99bd0aa78f82f245de32f58faa8c
+2026-01-12T17:53:06.077Z [INFO]: Note: switching to '1feb31736cef99bd0aa78f82f245de32f58faa8c'.
+                                 You are in 'detached HEAD' state. You can look around, make experimental
+                                 changes and commit them, and you can discard any commits you make in this
+                                 state without impacting any branches by switching back to a branch.
+                                 If you want to create a new branch to retain commits you create, you may
+                                 do so (now or later) by using -c with the switch command. Example:
+                                 git switch -c <new-branch-name>
+                                 Or undo this operation with:
+                                 git switch -
+                                 Turn off this advice by setting config variable advice.detachedHead to false
+                                 HEAD is now at 1feb317 Auto-deploy: 2026-01-12 12:52:32
+2026-01-12T17:53:06.090Z [INFO]: Successfully cleaned up Git credentials
+2026-01-12T17:53:06.090Z [INFO]: # Checking for Git submodules at: /codebuild/output/src2184625517/src/command-library/.gitmodules
+2026-01-12T17:53:06.097Z [INFO]: # Retrieving environment cache...
+2026-01-12T17:53:06.140Z [WARNING]: ! Unable to write cache: {"code":"ERR_BAD_REQUEST","message":"Request failed with status code 404"})}
+2026-01-12T17:53:06.140Z [INFO]: ---- Setting Up SSM Secrets ----
+2026-01-12T17:53:06.140Z [INFO]: SSM params {"Path":"/amplify/d217xqm8x4qhsb/main/","WithDecryption":true}
+2026-01-12T17:53:06.190Z [WARNING]: !Failed to set up process.env.secrets
+2026-01-12T17:53:07.018Z [INFO]: # No package override configuration found.
+2026-01-12T17:53:07.022Z [INFO]: # Retrieving cache...
+2026-01-12T17:53:07.066Z [INFO]: # Retrieved cache
+2026-01-12T17:53:11.818Z [INFO]: ## Starting Backend Build
+                                 ## Checking for associated backend environment...
+                                 ## No backend environment association found, continuing...
+                                 ## Completed Backend Build
+2026-01-12T17:53:11.825Z [INFO]: {"backendDuration": 0}
+                                 ## Starting Frontend Build
+                                 # Starting phase: preBuild
+                                 # Executing command: echo "Copying command files to web portal"
+                                 Copying command files to web portal
+                                 # Executing command: mkdir -p app/web-portal/public/commands
+                                 # Executing command: find .cursor/commands -maxdepth 1 -name "*.md" -not -name "README.md" -exec cp {} app/web-portal/public/commands/ \; || true
+2026-01-12T17:53:11.888Z [INFO]: # Executing command: cp library/commands-index.json app/web-portal/public/commands/index.json || true
+2026-01-12T17:53:11.890Z [INFO]: # Executing command: echo "Installing dependencies"
+                                 Installing dependencies
+2026-01-12T17:53:11.891Z [INFO]: # Executing command: cd app/web-portal
+                                 npm ci
+2026-01-12T17:53:31.328Z [INFO]: added 110 packages, and audited 111 packages in 14s
+2026-01-12T17:53:31.337Z [INFO]: 28 packages are looking for funding
+                                 run `npm fund` for details
+                                 found 0 vulnerabilities
+2026-01-12T17:53:31.346Z [INFO]: # Completed phase: preBuild
+                                 # Starting phase: build
+                                 # Executing command: echo "Building web portal"
+                                 Building web portal
+                                 # Executing command: cd app/web-portal
+                                 npm run build
+2026-01-12T17:53:31.346Z [WARNING]: /root/.rvm/scripts/extras/bash_zsh_support/chpwd/function.sh: line 5: cd: app/web-portal: No such file or directory
+2026-01-12T17:53:31.446Z [INFO]: > web-portal@0.0.0 build
+                                 > tsc && vite build
+2026-01-12T17:53:33.362Z [INFO]: src/pages/Home.tsx(35,16): error TS7006: Parameter 'slug' implicitly has an 'any' type.
+2026-01-12T17:53:33.363Z [INFO]: src/pages/Home.tsx(36,20): error TS7006: Parameter 'cmd' implicitly has an 'any' type.
+                                 src/pages/Install.tsx(2,10): error TS6133: 'Terminal' is declared but its value is never read.
+                                 src/pages/Library.tsx(72,54): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'SetStateAction<string | null>'.
+                                 Type 'undefined' is not assignable to type 'SetStateAction<string | null>'.
+                                 src/utils/commands.ts(67,21): error TS6133: 'catKey' is declared but its value is never read.
+                                 src/utils/commands.ts(93,5): error TS2322: Type '({ id: string; name: string; title: string; description: string; purpose: string | undefined; usage: string | undefined; speed: string | undefined; whenToUse: string | undefined; category: string; content: string; } | null)[]' is not assignable to type 'CommandMetadata[]'.
+                                 Type '{ id: string; name: string; title: string; description: string; purpose: string | undefined; usage: string | undefined; speed: string | undefined; whenToUse: string | undefined; category: string; content: string; } | null' is not assignable to type 'CommandMetadata'.
+                                 Type 'null' is not assignable to type 'CommandMetadata'.
+2026-01-12T17:53:33.363Z [INFO]: src/utils/commands.ts(93,42): error TS2677: A type predicate's type must be assignable to its parameter's type.
+                                 Type 'CommandMetadata' is not assignable to type '{ id: string; name: string; title: string; description: string; purpose: string | undefined; usage: string | undefined; speed: string | undefined; whenToUse: string | undefined; category: string; content: string; }'.
+                                 Property 'purpose' is optional in type 'CommandMetadata' but required in type '{ id: string; name: string; title: string; description: string; purpose: string | undefined; usage: string | undefined; speed: string | undefined; whenToUse: string | undefined; category: string; content: string; }'.
+                                 src/utils/commands.ts(115,21): error TS6133: 'catKey' is declared but its value is never read.
+2026-01-12T17:53:33.381Z [ERROR]: !!! Build failed
+2026-01-12T17:53:33.381Z [ERROR]: !!! Error: Command failed with exit code 2
+2026-01-12T17:53:33.381Z [INFO]: # Starting environment caching...
+2026-01-12T17:53:33.382Z [INFO]: # Environment caching completed
+
