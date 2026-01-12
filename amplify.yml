@@ -3,18 +3,20 @@ frontend:
   phases:
     preBuild:
       commands:
-        - echo "Current directory"
-        - pwd
         - echo "Copying command files to web portal"
         - mkdir -p app/web-portal/public/commands
         - find .cursor/commands -maxdepth 1 -name "*.md" -not -name "README.md" -exec cp {} app/web-portal/public/commands/ \; || true
         - cp library/commands-index.json app/web-portal/public/commands/index.json || true
         - echo "Installing dependencies"
-        - cd app/web-portal && npm ci
+        - |
+          cd app/web-portal
+          npm ci
     build:
       commands:
         - echo "Building web portal"
-        - cd app/web-portal && npm run build
+        - |
+          cd app/web-portal
+          npm run build
   artifacts:
     baseDirectory: app/web-portal/dist
     files:
