@@ -3,12 +3,10 @@ frontend:
   phases:
     preBuild:
       commands:
-        # Debug: Show current directory structure
         - echo "Current directory:"
         - pwd
         - echo "Directory contents:"
         - ls -la
-        # Copy command files to web portal public directory (excluding archive)
         - echo "Copying command files to web portal..."
         - mkdir -p app/web-portal/public/commands
         - find .cursor/commands -maxdepth 1 -name "*.md" -not -name "README.md" -exec cp {} app/web-portal/public/commands/ \; || true
@@ -16,38 +14,15 @@ frontend:
         - echo "Verifying app/web-portal exists:"
         - ls -la app/web-portal/ || echo "ERROR: app/web-portal not found!"
         - echo "Installing dependencies..."
-        - |
-          if [ -d "app/web-portal" ]; then
-            cd app/web-portal
-            echo "Changed to: $(pwd)"
-            npm ci
-          else
-            echo "ERROR: app/web-portal directory not found!"
-            echo "Current directory: $(pwd)"
-            ls -la
-            exit 1
-          fi
+        - cd app/web-portal && npm ci
     build:
       commands:
         - echo "Build phase - Current directory:"
         - pwd
         - echo "Checking for app/web-portal:"
-        - ls -la app/web-portal/ 2>&1 || echo "Directory listing failed"
+        - ls -la app/web-portal/ || echo "Directory listing failed"
         - echo "Building web portal..."
-        - |
-          if [ -d "app/web-portal" ]; then
-            cd app/web-portal
-            echo "Changed to: $(pwd)"
-            npm run build
-          else
-            echo "ERROR: app/web-portal directory not found in build phase!"
-            echo "Current directory: $(pwd)"
-            echo "Contents of current directory:"
-            ls -la
-            echo "Looking for app directory:"
-            ls -la app/ 2>&1 || echo "app/ not found"
-            exit 1
-          fi
+        - cd app/web-portal && npm run build
   artifacts:
     baseDirectory: app/web-portal/dist
     files:
