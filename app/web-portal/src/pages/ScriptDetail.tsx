@@ -45,7 +45,7 @@ export default function ScriptDetail() {
 
   const getPlatformIcon = () => {
     if (script?.platform === 'windows') {
-      return <Windows className="h-5 w-5" />;
+      return <Monitor className="h-5 w-5" />;
     } else if (script?.platform === 'unix') {
       return <Terminal className="h-5 w-5" />;
     }
