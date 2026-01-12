@@ -1,0 +1,22 @@
+2026-01-12T17:26:32.078Z [INFO]: # Build environment configured with Standard build compute type: 8GiB Memory, 4vCPUs, 128GB Disk Space
+2026-01-12T17:26:32.510Z [INFO]: # Cloning repository: git@github.com:iriley-mirabel/command-library.git
+2026-01-12T17:26:33.244Z [INFO]: 
+2026-01-12T17:26:33.244Z [INFO]: Cloning into 'command-library'...
+2026-01-12T17:26:33.245Z [INFO]: # Switching to commit: 257399bf1333faf56c58dc75684fc336e68c3d91
+2026-01-12T17:26:33.260Z [INFO]: Note: switching to '257399bf1333faf56c58dc75684fc336e68c3d91'.
+                                 You are in 'detached HEAD' state. You can look around, make experimental
+                                 changes and commit them, and you can discard any commits you make in this
+                                 state without impacting any branches by switching back to a branch.
+                                 If you want to create a new branch to retain commits you create, you may
+                                 do so (now or later) by using -c with the switch command. Example:
+                                 git switch -c <new-branch-name>
+                                 Or undo this operation with:
+                                 git switch -
+                                 Turn off this advice by setting config variable advice.detachedHead to false
+                                 HEAD is now at 257399b Add Amplify deployment helper script with AWS CLI integration
+2026-01-12T17:26:33.279Z [INFO]: Successfully cleaned up Git credentials
+2026-01-12T17:26:33.279Z [INFO]: # Checking for Git submodules at: /codebuild/output/src2987146414/src/command-library/.gitmodules
+2026-01-12T17:26:33.287Z [ERROR]: !!! CustomerError: The commands provided in the buildspec are malformed. Please ensure that you have properly escaped reserved YAML characters. If you have a ':' character in your command, encapsulate the command within quotes
+2026-01-12T17:26:33.287Z [INFO]: # Starting environment caching...
+2026-01-12T17:26:33.288Z [INFO]: # Environment caching completed
+
