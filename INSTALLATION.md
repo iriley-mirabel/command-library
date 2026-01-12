@@ -89,6 +89,36 @@ bash ~/cursor-commands/scripts/update-commands.sh
 ~/$env:USERPROFILE/cursor-commands/scripts/update-commands.ps1
 ```
 
+## 🛠️ Utility Scripts
+
+The library includes utility scripts for deployment, automation, and setup tasks. These are separate from commands and can be downloaded as needed.
+
+### Available Scripts
+
+- **deploy-and-fix.ps1** - Automated AWS Amplify deployment with build monitoring and error logging
+- **setup-commands.sh/.ps1** - Setup script for linking commands to projects (used in installation)
+- **update-commands.sh/.ps1** - Update script for pulling latest commands (used for daily updates)
+
+### How to Use Scripts
+
+1. **Browse Scripts**: Visit the [Scripts Library](https://your-amplify-url/scripts) page in the web portal
+2. **View Details**: Click on any script to see full content, usage instructions, and prerequisites
+3. **Download**: Click "Download Script" to save the file to your machine
+4. **Copy**: Click "Copy Script" to copy the content to your clipboard
+
+### Example: Using deploy-and-fix.ps1
+
+```powershell
+# Download the script from the web portal or copy from scripts/deployment/
+# Then run it with your Amplify App ID:
+.\deploy-and-fix.ps1 -AppId "your-app-id"
+
+# Or let it auto-detect:
+.\deploy-and-fix.ps1
+```
+
+**Note:** Scripts are utility tools and don't need to be installed like commands. They're standalone files you can use in your projects as needed.
+
 ## 🔧 Integration Methods
 
 ### Method 1: Symlink (Recommended)

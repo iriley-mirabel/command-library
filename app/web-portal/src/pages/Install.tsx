@@ -1,5 +1,6 @@
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
-import { Download } from 'lucide-react';
+import { Download, FileCode } from 'lucide-react';
 
 export default function Install() {
   return (
@@ -90,6 +91,54 @@ bash ~/cursor-commands/scripts/setup-commands.sh`}
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Utility Scripts */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+            <FileCode className="h-6 w-6" />
+            Utility Scripts
+          </h2>
+          
+          <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6 mb-4">
+            <p className="text-zinc-400 mb-4 leading-relaxed">
+              The library also includes utility scripts for deployment, automation, and setup tasks. These are separate from commands and can be downloaded as needed.
+            </p>
+            <Link 
+              to="/scripts"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white text-zinc-900 rounded-lg font-medium hover:bg-zinc-100 transition-colors"
+            >
+              <FileCode className="h-4 w-4" />
+              Browse Scripts Library
+            </Link>
+          </div>
+
+          <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-white mb-3">Available Scripts</h3>
+            <ul className="space-y-3 text-zinc-400">
+              <li className="flex items-start gap-3">
+                <span className="text-blue-400 mt-1">•</span>
+                <div>
+                  <strong className="text-white">deploy-and-fix.ps1</strong> - Automated AWS Amplify deployment with build monitoring
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-blue-400 mt-1">•</span>
+                <div>
+                  <strong className="text-white">setup-commands.sh/.ps1</strong> - Setup script for linking commands to projects
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-blue-400 mt-1">•</span>
+                <div>
+                  <strong className="text-white">update-commands.sh/.ps1</strong> - Update script for pulling latest commands
+                </div>
+              </li>
+            </ul>
+            <p className="text-zinc-400 mt-4 text-sm">
+              <strong className="text-white">How to use:</strong> Visit the <Link to="/scripts" className="text-blue-400 hover:text-blue-300 underline">Scripts Library</Link> page to browse, view details, and download scripts. Scripts can be copied to your clipboard or downloaded directly.
+            </p>
           </div>
         </div>
 
