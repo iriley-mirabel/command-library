@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Download, BookOpen, Zap } from 'lucide-react';
+import { Download, BookOpen, Zap, FileCode } from 'lucide-react';
 import Header from '../components/Header';
 import { getAllCommands, CommandMetadata } from '../utils/commands';
 
