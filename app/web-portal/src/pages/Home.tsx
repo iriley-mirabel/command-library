@@ -31,9 +31,9 @@ export default function Home() {
         const allCommands = await getAllCommands();
         
         // Filter to only mostUsed commands, maintaining order from index
-        const featured = mostUsedSlugs
+        const featured: CommandMetadata[] = mostUsedSlugs
           .map((slug: string) => allCommands.find((cmd: CommandMetadata) => cmd.id === slug))
-          .filter((cmd): cmd is CommandMetadata => cmd !== undefined);
+          .filter((cmd: CommandMetadata | undefined): cmd is CommandMetadata => cmd !== undefined);
         
         setFeaturedCommands(featured);
       } catch (error) {
