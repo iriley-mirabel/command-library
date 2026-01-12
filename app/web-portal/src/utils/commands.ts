@@ -64,7 +64,7 @@ export async function getAllCommands(): Promise<CommandMetadata[]> {
         
         // Get category from index
         let category = 'Other';
-        for (const [catKey, catData] of Object.entries(index.categories)) {
+        for (const [, catData] of Object.entries(index.categories)) {
           if ((catData as any).commands?.includes(slug)) {
             category = (catData as any).name;
             break;
@@ -90,7 +90,7 @@ export async function getAllCommands(): Promise<CommandMetadata[]> {
     });
     
     const commands = await Promise.all(commandPromises);
-    return commands.filter((cmd): cmd is CommandMetadata => cmd !== null);
+    return commands.filter((cmd): cmd is CommandMetadata => cmd !== null && cmd !== undefined);
   } catch (error) {
     console.error('Error loading commands:', error);
     return [];
@@ -112,7 +112,7 @@ export async function getCommandBySlug(slug: string): Promise<CommandMetadata | 
           return null; // Don't load archived commands
         }
         // Get category
-        for (const [catKey, catData] of Object.entries(index.categories)) {
+        for (const [, catData] of Object.entries(index.categories)) {
           if ((catData as any).commands?.includes(slug)) {
             category = (catData as any).name;
             break;

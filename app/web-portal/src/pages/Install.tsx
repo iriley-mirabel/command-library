@@ -1,5 +1,5 @@
 import Header from '../components/Header';
-import { Terminal, Download } from 'lucide-react';
+import { Download } from 'lucide-react';
 
 export default function Install() {
   return (

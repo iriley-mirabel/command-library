@@ -32,7 +32,7 @@ export default function Home() {
         
         // Filter to only mostUsed commands, maintaining order from index
         const featured = mostUsedSlugs
-          .map(slug => allCommands.find(cmd => cmd.id === slug))
+          .map((slug: string) => allCommands.find((cmd: CommandMetadata) => cmd.id === slug))
           .filter((cmd): cmd is CommandMetadata => cmd !== undefined);
         
         setFeaturedCommands(featured);
