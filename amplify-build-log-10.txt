@@ -1,0 +1,90 @@
+2026-01-12T17:48:30.382Z [INFO]: # Build environment configured with Standard build compute type: 8GiB Memory, 4vCPUs, 128GB Disk Space
+2026-01-12T17:48:30.822Z [INFO]: # Cloning repository: git@github.com:iriley-mirabel/command-library.git
+2026-01-12T17:48:31.498Z [INFO]: 
+2026-01-12T17:48:31.498Z [INFO]: Cloning into 'command-library'...
+2026-01-12T17:48:31.499Z [INFO]: # Switching to commit: 5318d1de0bae4b4c7ff5ed1847b429a28357607d
+2026-01-12T17:48:31.515Z [INFO]: Note: switching to '5318d1de0bae4b4c7ff5ed1847b429a28357607d'.
+                                 You are in 'detached HEAD' state. You can look around, make experimental
+                                 changes and commit them, and you can discard any commits you make in this
+                                 state without impacting any branches by switching back to a branch.
+                                 If you want to create a new branch to retain commits you create, you may
+                                 do so (now or later) by using -c with the switch command. Example:
+                                 git switch -c <new-branch-name>
+                                 Or undo this operation with:
+                                 git switch -
+                                 Turn off this advice by setting config variable advice.detachedHead to false
+                                 HEAD is now at 5318d1d Auto-deploy: 2026-01-12 12:47:58
+2026-01-12T17:48:31.528Z [INFO]: Successfully cleaned up Git credentials
+2026-01-12T17:48:31.529Z [INFO]: # Checking for Git submodules at: /codebuild/output/src2952516409/src/command-library/.gitmodules
+2026-01-12T17:48:31.535Z [INFO]: # Retrieving environment cache...
+2026-01-12T17:48:31.569Z [WARNING]: ! Unable to write cache: {"code":"ERR_BAD_REQUEST","message":"Request failed with status code 404"})}
+2026-01-12T17:48:31.569Z [INFO]: ---- Setting Up SSM Secrets ----
+2026-01-12T17:48:31.569Z [INFO]: SSM params {"Path":"/amplify/d217xqm8x4qhsb/main/","WithDecryption":true}
+2026-01-12T17:48:31.614Z [WARNING]: !Failed to set up process.env.secrets
+2026-01-12T17:48:32.259Z [INFO]: # No package override configuration found.
+2026-01-12T17:48:32.263Z [INFO]: # Retrieving cache...
+2026-01-12T17:48:32.304Z [INFO]: # Retrieved cache
+2026-01-12T17:48:37.413Z [INFO]: ## Starting Backend Build
+                                 ## Checking for associated backend environment...
+                                 ## No backend environment association found, continuing...
+                                 ## Completed Backend Build
+2026-01-12T17:48:37.420Z [INFO]: ## Starting Frontend Build
+2026-01-12T17:48:37.420Z [INFO]: # Starting phase: preBuild
+                                 # Executing command: echo "Copying command files to web portal"
+                                 Copying command files to web portal
+                                 # Executing command: mkdir -p app/web-portal/public/commands
+2026-01-12T17:48:37.422Z [INFO]: # Executing command: find .cursor/commands -maxdepth 1 -name "*.md" -not -name "README.md" -exec cp {} app/web-portal/public/commands/ \; || true
+2026-01-12T17:48:37.487Z [INFO]: # Executing command: cp library/commands-index.json app/web-portal/public/commands/index.json || true
+2026-01-12T17:48:37.490Z [INFO]: # Executing command: echo "Installing dependencies"
+                                 Installing dependencies
+2026-01-12T17:48:37.490Z [INFO]: # Executing command: cd app/web-portal
+                                 npm ci
+2026-01-12T17:48:55.066Z [WARNING]: npm warn ERESOLVE overriding peer dependency
+2026-01-12T17:48:55.072Z [WARNING]: npm warn While resolving: web-portal@0.0.0
+                                    npm warn Found: react@19.2.3
+                                    npm warn node_modules/react
+                                    npm warn   react@"^18.3.1" from the root project
+                                    npm warn   4 more (lucide-react, react-dom, react-router, react-router-dom)
+                                    npm warn
+                                    npm warn Could not resolve dependency:
+                                    npm warn peer react@"^19.2.3" from react-dom@19.2.3
+                                    npm warn node_modules/react-dom
+                                    npm warn   react-dom@"^18.3.1" from the root project
+                                    npm warn   2 more (react-router, react-router-dom)
+2026-01-12T17:48:56.067Z [WARNING]: npm error code EUSAGE
+2026-01-12T17:48:56.068Z [WARNING]: npm error
+                                    npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+                                    npm error
+                                    npm error Missing: @types/react@18.3.27 from lock file
+                                    npm error Missing: @types/react-dom@18.3.7 from lock file
+                                    npm error Invalid: lock file's react@19.2.3 does not satisfy react@18.3.1
+                                    npm error Invalid: lock file's react-dom@19.2.3 does not satisfy react-dom@18.3.1
+                                    npm error Missing: @types/prop-types@15.7.15 from lock file
+                                    npm error Missing: csstype@3.2.3 from lock file
+                                    npm error Missing: loose-envify@1.4.0 from lock file
+                                    npm error Missing: js-tokens@4.0.0 from lock file
+                                    npm error Invalid: lock file's scheduler@0.27.0 does not satisfy scheduler@0.23.2
+                                    npm error
+                                    npm error Clean install a project
+                                    npm error
+                                    npm error Usage:
+                                    npm error npm ci
+                                    npm error
+                                    npm error Options:
+                                    npm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+                                    npm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+                                    npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+                                    npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+                                    npm error [--no-bin-links] [--no-fund] [--dry-run]
+                                    npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+                                    npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
+                                    npm error
+                                    npm error aliases: clean-install, ic, install-clean, isntall-clean
+                                    npm error
+                                    npm error Run "npm help ci" for more info
+2026-01-12T17:48:56.068Z [WARNING]: npm error A complete log of this run can be found in: /root/.npm/_logs/2026-01-12T17_48_41_195Z-debug-0.log
+2026-01-12T17:48:56.078Z [ERROR]: !!! Build failed
+2026-01-12T17:48:56.078Z [ERROR]: !!! Error: Command failed with exit code 1
+2026-01-12T17:48:56.079Z [INFO]: # Starting environment caching...
+2026-01-12T17:48:56.079Z [INFO]: # Environment caching completed
+
