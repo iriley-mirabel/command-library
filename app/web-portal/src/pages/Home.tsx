@@ -125,7 +125,7 @@ export default function Home() {
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="p-8 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-zinc-700 transition-colors">
             <h3 className="text-xl font-bold text-white mb-3">Quick Start</h3>
             <p className="text-zinc-400 mb-4 leading-relaxed">
@@ -136,6 +136,22 @@ export default function Home() {
               className="text-white hover:text-zinc-300 transition-colors inline-flex items-center gap-2 font-medium"
             >
               View Installation Guide →
+            </Link>
+          </div>
+          
+          <div className="p-8 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-zinc-700 transition-colors">
+            <div className="flex items-center gap-3 mb-3">
+              <FileCode className="h-5 w-5 text-blue-400" />
+              <h3 className="text-xl font-bold text-white">Utility Scripts</h3>
+            </div>
+            <p className="text-zinc-400 mb-4 leading-relaxed">
+              Download deployment scripts, automation tools, and setup utilities for your projects.
+            </p>
+            <Link 
+              to="/scripts"
+              className="text-white hover:text-zinc-300 transition-colors inline-flex items-center gap-2 font-medium"
+            >
+              Browse Scripts →
             </Link>
           </div>
           

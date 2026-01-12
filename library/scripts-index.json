@@ -1,0 +1,42 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2024-01-12",
+  "totalScripts": 5,
+  "categories": {
+    "deployment": {
+      "name": "Deployment & CI/CD",
+      "scripts": [
+        "deploy-and-fix"
+      ]
+    },
+    "setup": {
+      "name": "Setup & Installation",
+      "scripts": [
+        "setup-commands",
+        "update-commands"
+      ]
+    }
+  },
+  "platforms": {
+    "windows": {
+      "name": "Windows (PowerShell)",
+      "scripts": [
+        "deploy-and-fix",
+        "setup-commands",
+        "update-commands"
+      ]
+    },
+    "unix": {
+      "name": "Unix/Linux/Mac (Bash)",
+      "scripts": [
+        "setup-commands",
+        "update-commands"
+      ]
+    }
+  },
+  "mostUsed": [
+    "setup-commands",
+    "update-commands",
+    "deploy-and-fix"
+  ]
+}

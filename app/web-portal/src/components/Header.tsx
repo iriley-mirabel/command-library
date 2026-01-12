@@ -18,7 +18,10 @@ export default function Header() {
           
           <nav className="flex items-center gap-6">
             <Link to="/library" className="text-sm text-zinc-400 hover:text-white transition-colors">
-              Library
+              Commands
+            </Link>
+            <Link to="/scripts" className="text-sm text-zinc-400 hover:text-white transition-colors">
+              Scripts
             </Link>
             <Link to="/install" className="text-sm text-zinc-400 hover:text-white transition-colors">
               Install

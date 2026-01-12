@@ -7,6 +7,14 @@ frontend:
         - mkdir -p app/web-portal/public/commands
         - find .cursor/commands -maxdepth 1 -name "*.md" -not -name "README.md" -exec cp {} app/web-portal/public/commands/ \; || true
         - cp library/commands-index.json app/web-portal/public/commands/index.json || true
+        - echo "Copying script files to web portal"
+        - mkdir -p app/web-portal/public/scripts
+        - cp scripts/setup-commands.ps1 app/web-portal/public/scripts/setup-commands.ps1 || true
+        - cp scripts/setup-commands.sh app/web-portal/public/scripts/setup-commands.sh || true
+        - cp scripts/update-commands.ps1 app/web-portal/public/scripts/update-commands.ps1 || true
+        - cp scripts/update-commands.sh app/web-portal/public/scripts/update-commands.sh || true
+        - cp scripts/deployment/deploy-and-fix.ps1 app/web-portal/public/scripts/deploy-and-fix.ps1 || true
+        - cp library/scripts-index.json app/web-portal/public/scripts/index.json || true
         - echo "Installing dependencies"
         - |
           cd app/web-portal
