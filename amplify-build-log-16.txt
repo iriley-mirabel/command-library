@@ -1,0 +1,74 @@
+2026-01-12T19:29:10.526Z [INFO]: # Build environment configured with Standard build compute type: 8GiB Memory, 4vCPUs, 128GB Disk Space
+2026-01-12T19:29:10.943Z [INFO]: # Cloning repository: git@github.com:iriley-mirabel/command-library.git
+2026-01-12T19:29:11.688Z [INFO]: 
+2026-01-12T19:29:11.689Z [INFO]: Cloning into 'command-library'...
+2026-01-12T19:29:11.689Z [INFO]: # Switching to commit: 018604ce1c5f95b59c6b127f2a2e7fe78d748291
+2026-01-12T19:29:11.706Z [INFO]: Note: switching to '018604ce1c5f95b59c6b127f2a2e7fe78d748291'.
+                                 You are in 'detached HEAD' state. You can look around, make experimental
+                                 changes and commit them, and you can discard any commits you make in this
+                                 state without impacting any branches by switching back to a branch.
+                                 If you want to create a new branch to retain commits you create, you may
+                                 do so (now or later) by using -c with the switch command. Example:
+                                 git switch -c <new-branch-name>
+                                 Or undo this operation with:
+                                 git switch -
+                                 Turn off this advice by setting config variable advice.detachedHead to false
+                                 HEAD is now at 018604c Add Scripts Library section to installation guides
+2026-01-12T19:29:11.762Z [INFO]: Successfully cleaned up Git credentials
+2026-01-12T19:29:11.763Z [INFO]: # Checking for Git submodules at: /codebuild/output/src588821726/src/command-library/.gitmodules
+2026-01-12T19:29:11.773Z [INFO]: # Retrieving environment cache...
+2026-01-12T19:29:11.849Z [INFO]: # Retrieved environment cache
+2026-01-12T19:29:11.850Z [INFO]: ---- Setting Up SSM Secrets ----
+2026-01-12T19:29:11.850Z [INFO]: SSM params {"Path":"/amplify/d217xqm8x4qhsb/main/","WithDecryption":true}
+2026-01-12T19:29:11.904Z [WARNING]: !Failed to set up process.env.secrets
+2026-01-12T19:29:12.714Z [INFO]: # No package override configuration found.
+2026-01-12T19:29:12.718Z [INFO]: # Retrieving cache...
+2026-01-12T19:29:15.319Z [INFO]: # Extracting cache...
+2026-01-12T19:29:17.576Z [INFO]: # Extraction completed
+2026-01-12T19:29:17.592Z [INFO]: # Retrieved cache
+2026-01-12T19:29:23.172Z [INFO]: ## Starting Backend Build
+                                 ## Checking for associated backend environment...
+                                 ## No backend environment association found, continuing...
+                                 ## Completed Backend Build
+2026-01-12T19:29:23.179Z [INFO]: {"backendDuration": 0}
+                                 ## Starting Frontend Build
+                                 # Starting phase: preBuild
+                                 # Executing command: echo "Copying command files to web portal"
+                                 Copying command files to web portal
+                                 # Executing command: mkdir -p app/web-portal/public/commands
+2026-01-12T19:29:23.179Z [INFO]: # Executing command: find .cursor/commands -maxdepth 1 -name "*.md" -not -name "README.md" -exec cp {} app/web-portal/public/commands/ \; || true
+2026-01-12T19:29:23.231Z [INFO]: # Executing command: cp library/commands-index.json app/web-portal/public/commands/index.json || true
+2026-01-12T19:29:23.232Z [INFO]: # Executing command: echo "Copying script files to web portal"
+                                 Copying script files to web portal
+2026-01-12T19:29:23.233Z [INFO]: # Executing command: mkdir -p app/web-portal/public/scripts
+2026-01-12T19:29:23.234Z [INFO]: # Executing command: cp scripts/setup-commands.ps1 app/web-portal/public/scripts/setup-commands.ps1 || true
+2026-01-12T19:29:23.236Z [INFO]: # Executing command: cp scripts/setup-commands.sh app/web-portal/public/scripts/setup-commands.sh || true
+2026-01-12T19:29:23.237Z [INFO]: # Executing command: cp scripts/update-commands.ps1 app/web-portal/public/scripts/update-commands.ps1 || true
+2026-01-12T19:29:23.239Z [INFO]: # Executing command: cp scripts/update-commands.sh app/web-portal/public/scripts/update-commands.sh || true
+2026-01-12T19:29:23.241Z [INFO]: # Executing command: cp scripts/deployment/deploy-and-fix.ps1 app/web-portal/public/scripts/deploy-and-fix.ps1 || true
+2026-01-12T19:29:23.242Z [INFO]: # Executing command: cp library/scripts-index.json app/web-portal/public/scripts/index.json || true
+2026-01-12T19:29:23.244Z [INFO]: # Executing command: echo "Installing dependencies"
+                                 Installing dependencies
+2026-01-12T19:29:23.244Z [INFO]: # Executing command: cd app/web-portal
+                                 npm ci
+2026-01-12T19:29:45.805Z [INFO]: added 110 packages, and audited 111 packages in 17s
+2026-01-12T19:29:45.809Z [INFO]: 28 packages are looking for funding
+                                 run `npm fund` for details
+                                 found 0 vulnerabilities
+2026-01-12T19:29:45.819Z [INFO]: # Completed phase: preBuild
+                                 # Starting phase: build
+2026-01-12T19:29:45.819Z [INFO]: # Executing command: echo "Building web portal"
+                                 Building web portal
+                                 # Executing command: cd app/web-portal
+                                 npm run build
+2026-01-12T19:29:45.819Z [WARNING]: /root/.rvm/scripts/extras/bash_zsh_support/chpwd/function.sh: line 5: cd: app/web-portal: No such file or directory
+2026-01-12T19:29:45.921Z [INFO]: > web-portal@0.0.0 build
+                                 > tsc && vite build
+2026-01-12T19:29:48.007Z [INFO]: src/pages/Scripts.tsx(45,9): error TS6133: 'platforms' is declared but its value is never read.
+2026-01-12T19:29:48.024Z [ERROR]: !!! Build failed
+2026-01-12T19:29:48.025Z [ERROR]: !!! Error: Command failed with exit code 2
+2026-01-12T19:29:48.025Z [INFO]: # Starting environment caching...
+2026-01-12T19:29:48.025Z [INFO]: # Uploading environment cache artifact...
+2026-01-12T19:29:48.109Z [INFO]: # Uploaded environment cache artifact
+2026-01-12T19:29:48.109Z [INFO]: # Environment caching completed
+
