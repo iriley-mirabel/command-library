@@ -1,8 +1,16 @@
 {
   "version": "1.0.0",
   "lastUpdated": "2024",
-  "totalCommands": 20,
-  "archived": [],
+  "totalCommands": 30,
+  "archived": [
+    "a-dummy-command",
+    "dead-code-removal",
+    "naming-conventions",
+    "feature-refactor",
+    "NEW_COMMANDS_SUMMARY",
+    "IMPLEMENTATION_COMPLETE",
+    "ALL_COMMANDS_CHEATSHEET"
+  ],
   "categories": {
     "code-quality": {
       "name": "Code Quality & Cleanup",
@@ -10,7 +18,8 @@
         "cleanup-unused-code",
         "fix-import-paths",
         "fix-spacing-layout",
-        "refactor-cleanup"
+        "refactor-cleanup",
+        "design-token-check"
       ]
     },
     "ui-components": {
@@ -20,7 +29,9 @@
         "fix-data-table",
         "fix-form-fields",
         "implement-view-modes",
-        "standardize-status-badges"
+        "standardize-status-badges",
+        "fix-table-columns",
+        "add-filter-all-option"
       ]
     },
     "testing": {
@@ -38,6 +49,7 @@
         "standardize-page",
         "pre-commit-checklist",
         "daily-cleanup",
+        "daily-code-review",
         "pr-ready"
       ]
     },
@@ -45,30 +57,41 @@
       "name": "Discovery & Help",
       "commands": [
         "find-command",
-        "suggest-command"
+        "suggest-command",
+        "component-review"
       ]
     },
-    "design-system": {
-      "name": "Design System",
+    "migration": {
+      "name": "Migration & Modernization",
       "commands": [
-        "design-token-check"
+        "migrate-react-code",
+        "migrate-legacy-aspnet"
+      ]
+    },
+    "refactoring": {
+      "name": "Refactoring & Architecture",
+      "commands": [
+        "relocate-component",
+        "fix-navigation-routes",
+        "add-error-handling"
       ]
     },
     "utilities": {
       "name": "Utilities",
       "commands": [
-        "command-usage-report",
-        "a-dummy-command"
+        "command-usage-report"
       ]
     }
   },
   "mostUsed": [
     "cleanup-unused-code",
     "fix-import-paths",
+    "fix-spacing-layout",
     "standardize-page",
     "test-page-quick",
     "pre-commit-checklist",
-    "pr-ready"
+    "pr-ready",
+    "daily-code-review"
   ],
   "aliases": {
     "clean": "cleanup-unused-code",
@@ -78,7 +101,12 @@
     "table": "fix-data-table",
     "form": "fix-form-fields",
     "test": "test-page-quick",
-    "pr": "pr-ready"
+    "pr": "pr-ready",
+    "daily": "daily-code-review",
+    "review": "daily-code-review",
+    "migrate": "migrate-react-code",
+    "relocate": "relocate-component",
+    "routes": "fix-navigation-routes",
+    "errors": "add-error-handling"
   }
 }
-
