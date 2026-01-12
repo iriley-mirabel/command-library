@@ -5,20 +5,14 @@ frontend:
       commands:
         - echo "Current directory"
         - pwd
-        - echo "Directory contents"
-        - ls -la
         - echo "Copying command files to web portal"
         - mkdir -p app/web-portal/public/commands
         - find .cursor/commands -maxdepth 1 -name "*.md" -not -name "README.md" -exec cp {} app/web-portal/public/commands/ \; || true
         - cp library/commands-index.json app/web-portal/public/commands/index.json || true
-        - echo "Verifying app/web-portal exists"
-        - ls -la app/web-portal/ || echo "ERROR app/web-portal not found"
         - echo "Installing dependencies"
         - cd app/web-portal && npm ci
     build:
       commands:
-        - echo "Build phase - Current directory"
-        - pwd
         - echo "Building web portal"
         - cd app/web-portal && npm run build
   artifacts:
