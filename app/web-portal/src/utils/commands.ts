@@ -48,13 +48,47 @@ export async function getAllCommands(): Promise<CommandMetadata[]> {
         
         const text = await response.text();
         
-        // Parse the command name from the first line (e.g., "# /cleanup-unused-code")
-        const firstLine = text.split('\n')[0];
-        const commandName = firstLine.replace(/^#\s*\//, '').trim();
+        // Parse frontmatter if present
+        let frontmatter: any = {};
+        let content = text;
         
-        // Extract description (second line)
-        const lines = text.split('\n').filter(line => line.trim());
-        const description = lines[1] || '';
+        if (text.startsWith('---')) {
+          const frontmatterEnd = text.indexOf('---', 3);
+          if (frontmatterEnd !== -1) {
+            const frontmatterText = text.substring(3, frontmatterEnd).trim();
+            content = text.substring(frontmatterEnd + 3).trim();
+            
+            // Simple YAML parsing for name and description
+            const nameMatch = frontmatterText.match(/^name:\s*(.+)$/m);
+            const descMatch = frontmatterText.match(/^description:\s*(.+)$/m);
+            
+            if (nameMatch) frontmatter.name = nameMatch[1].trim();
+            if (descMatch) frontmatter.description = descMatch[1].trim();
+          }
+        }
+        
+        // Parse the command name from frontmatter or markdown header
+        let commandName = frontmatter.name || '';
+        if (!commandName) {
+          // Look for markdown header (e.g., "# /cleanup-unused-code" or "# 🧹 Cleanup...")
+          const headerMatch = content.match(/^#\s*[🧹🔧⚡🎨📝🚀💡✨🔍🛠️]*\s*\/?([^\n]+)/m);
+          if (headerMatch) {
+            commandName = headerMatch[1].replace(/^\/+/, '').trim();
+          }
+        }
+        
+        // Extract description from frontmatter or content
+        let description = frontmatter.description || '';
+        if (!description) {
+          const lines = content.split('\n').filter(line => line.trim());
+          // Skip the header line and get the next non-empty line
+          for (let i = 1; i < lines.length; i++) {
+            if (lines[i] && !lines[i].startsWith('#')) {
+              description = lines[i].trim();
+              break;
+            }
+          }
+        }
         
         // Extract metadata from sections
         const purposeMatch = text.match(/##\s*Purpose\s*\n([^\n]+)/i);
