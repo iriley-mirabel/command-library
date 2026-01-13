@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "lastUpdated": "2024",
-  "totalCommands": 30,
+  "totalCommands": 31,
   "archived": [
     "a-dummy-command",
     "dead-code-removal",
@@ -79,7 +79,8 @@
     "utilities": {
       "name": "Utilities",
       "commands": [
-        "command-usage-report"
+        "command-usage-report",
+        "dummy"
       ]
     }
   },
