@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "lastUpdated": "2024",
-  "totalCommands": 31,
+  "totalCommands": 30,
   "archived": [
     "a-dummy-command",
     "dead-code-removal",
@@ -9,8 +9,9 @@
     "feature-refactor",
     "NEW_COMMANDS_SUMMARY",
     "IMPLEMENTATION_COMPLETE",
-    "ALL_COMMANDS_CHEATSHEET"
-  ],
+    "ALL_COMMANDS_CHEATSHEET",
+    "dummy"
+    ],
   "categories": {
     "code-quality": {
       "name": "Code Quality & Cleanup",
@@ -79,8 +80,8 @@
     "utilities": {
       "name": "Utilities",
       "commands": [
-        "command-usage-report",
-        "dummy"
+        "command-usage-report"
+        
       ]
     }
   },
